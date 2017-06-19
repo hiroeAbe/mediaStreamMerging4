@@ -14,24 +14,24 @@ Highpass.setup = function() {
   // WebAudio API 関係の初期化
   console.log("highpass setup");
   this.output = audioCtx.createMediaStreamDestination();
-  this.lowpassNode = audioCtx.createBiquadFilter();
-  this.lowpassNode.type = 0;
-  this.lowpassNode.frequency.value = 440;
+  this.highpassNode = audioCtx.createBiquadFilter();
+  this.highpassNode.type = 1;
+  this.highpassNode.frequency.value = 440;
 }
 
 Highpass.setupFilter = function(audioStream) {
   this.mic = audioCtx.createMediaStreamSource(audioStream);
   // エフェクトを掛けて(ローパス)
-  this.mic.connect(this.lowpassNode);
-  this.lowpassNode.connect(this.output);
+  this.mic.connect(this.highpassNode);
+  this.highpassNode.connect(this.output);
 }
 
 Highpass.toggleFilter = function(element) {
   this.mic.disconnect(0);
-  this.lowpassNode.disconnect(0);
+  this.highpassNode.disconnect(0);
   if(element.checked) {
-    this.mic.connect(this.lowpassNode);
-    this.lowpassNode.connect(this.output);
+    this.mic.connect(this.highpassNode);
+    this.highpassNode.connect(this.output);
   } else {
     this.mic.connect(this.output);
   }
@@ -47,9 +47,9 @@ Highpass.changeFrequency = function(element) {
   // Compute a multiplier from 0 to 1 based on an exponential scale.
   var multiplier = Math.pow(2, numberOfOctaves * (element.value - 1.0));
   // Get back to the frequency value between min and max.
-  this.lowpassNode.frequency.value = maxValue * multiplier;
+  this.highpassNode.frequency.value = maxValue * multiplier;
 };
 
 Highpass.changeQuality = function(element) {
-  this.lowpassNode.Q.value = element.value * this.QUAL_MUL;
+  this.highpassNode.Q.value = element.value * this.QUAL_MUL;
 }
