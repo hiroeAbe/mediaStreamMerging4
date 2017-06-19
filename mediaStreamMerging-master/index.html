@@ -5,6 +5,7 @@
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   <script type="text/javascript" src="https://skyway.io/dist/0.3/peer.js"></script>
   <script type="text/javascript" src="lowpass.js"></script>
+  <script type="text/javascript" src="highpass.js"></script>
   <script>
 
     // Compatibility shim
@@ -54,7 +55,7 @@
     });
 
     function step1 () {
-      Lowpass.setup();
+      Highpass.setup();
 
       // (1) まずはビデオのみのストリームを取り出す
       navigator.getUserMedia(
@@ -68,9 +69,9 @@
           navigator.getUserMedia(
             {audio: true, video: false},
             function(audioStream){
-              Lowpass.setupFilter(audioStream);
+              Highpass.setupFilter(audioStream);
               // できあがったoutputをvideoStreamに合流させる
-              videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
+              videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
               step2();
             },
             function(){ $('#step1-error').show();　} //エラー表示
@@ -119,9 +120,9 @@
         <video id="my-video" muted="true" autoplay></video>
         <p class="effectcontrol">
           Filter on: <input type="checkbox" checked="false"
-            onchange="Lowpass.toggleFilter(this);"/>
-         Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="Lowpass.changeFrequency(this);" />
-          Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="Lowpass.changeQuality(this);" /></p>
+            onchange="Highpass.toggleFilter(this);"/>
+         Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="Highpass.changeFrequency(this);" />
+          Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="Highpass.changeQuality(this);" /></p>
       </div>
 
       <!-- Steps -->
