@@ -56,7 +56,7 @@
 
     function step1 () {
       Highpass.setup();
-
+　　　　Lowpass.setup();
       // (1) まずはビデオのみのストリームを取り出す
       navigator.getUserMedia(
         {audio: false, video: true},
@@ -70,8 +70,10 @@
             {audio: true, video: false},
             function(audioStream){
               Highpass.setupFilter(audioStream);
+              Lowpass.setupFilter(audioStream);
               // できあがったoutputをvideoStreamに合流させる
               videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
+              videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
               step2();
             },
             function(){ $('#step1-error').show();　} //エラー表示
@@ -123,6 +125,11 @@
             onchange="Highpass.toggleFilter(this);"/>
          Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="Highpass.changeFrequency(this);" />
           Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="Highpass.changeQuality(this);" /></p>
+          Filter2 on: <input type="checkbox" checked="false"
+            onchange="Lowpass.toggleFilter(this);"/>
+         Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="Lowpass.changeFrequency(this);" />
+          Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="Lowpass.changeQuality(this);" /></p>
+      </div>
       </div>
 
       <!-- Steps -->
