@@ -61,10 +61,13 @@ Lowpass.changeDelay = function(element) {
   var feedback = audioctx.createGain();
 
   this.lowpassNode.connect(delay);
+  this.lowpassNode.connect(drygain);
   delay.connect(wetgain);
   delay.connect(feedback);
   feedback.connect(delay);
-  wetgain.connect(this.lowpassNode);
+  wetgain.connect(this.output);
+  drygain.connect(this.output);
+
 
   const Setup = () => {
     var bypass = document.getElementById("bypass").checked;
@@ -73,6 +76,8 @@ Lowpass.changeDelay = function(element) {
     var mix = parseFloat(document.getElementById("mix").value);
     if(bypass) mix = 0;
       wetgain.gain.value = mix;
+      drygain.gain.value = 1 - mix;
+
   }
   document.querySelector("input#bypass").addEventListener("change", Setup);
   document.querySelector("input#time").addEventListener("change", Setup);
