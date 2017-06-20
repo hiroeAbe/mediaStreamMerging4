@@ -31,6 +31,7 @@
       var drygain = audioctx.createGain();
       var feedback = audioctx.createGain();
       this.output = audioctx.createMediaStreamDestination();
+      src = audioctx.createMediaStreamSource(audioStream);
 
       input.connect(delay);
       input.connect(drygain);
@@ -45,7 +46,7 @@
         delay.delayTime.value = parseFloat(document.getElementById("time").value);
         feedback.gain.value = parseFloat(document.getElementById("feedback").value);
         var mix = parseFloat(document.getElementById("mix").value);
-        src = audioctx.createMediaStreamSource(audioStream);
+        //src = audioctx.createMediaStreamSource(audioStream);
         src.connect(input);
         if(bypass) mix = 0;
           wetgain.gain.value = mix;
