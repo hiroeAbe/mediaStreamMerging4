@@ -6,6 +6,14 @@
   <script type="text/javascript" src="https://skyway.io/dist/0.3/peer.js"></script>
   <script type="text/javascript" src="lowpass.js"></script>
   <script type="text/javascript" src="highpass.js"></script>
+
+  <table>
+    <tr><td>Bypass :</td><td><input id="bypass" type="checkbox"/></td></tr>
+    <tr><td>Time : </td><td><input type="text" size="8" id="time" value="0.25"/></td></tr>
+    <tr><td>Feedback : </td><td><input type="text" size="8" id="feedback" value="0.4"/></td></tr>
+    <tr><td>Mix : </td><td><input type="text" size="8" id="mix" value="0.4"/></td></tr>
+  </table>
+
   <script>
 
     // Compatibility shim
@@ -167,12 +175,6 @@
             onchange="Lowpass.toggleFilter(this);"/>
             Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="Lowpass.changeFrequency(this);"/>
           Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="Lowpass.changeQuality(this);" />
-      <table>
-        <tr><td>Bypass :</td><td><input id="bypass" type="checkbox"/></td></tr>
-        <tr><td>Time : </td><td><input type="text" size="8" id="time" value="0.25"/></td></tr>
-        <tr><td>Feedback : </td><td><input type="text" size="8" id="feedback" value="0.4"/></td></tr>
-        <tr><td>Mix : </td><td><input type="text" size="8" id="mix" value="0.4"/></td></tr>
-      </table>
 
         </p>
       </div>
