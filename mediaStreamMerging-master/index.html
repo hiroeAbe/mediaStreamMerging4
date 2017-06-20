@@ -22,7 +22,7 @@
       var wetgain = audioctx.createGain();
       var drygain = audioctx.createGain();
       var feedback = audioctx.createGain();
-      this.output = audioCtx.createMediaStreamDestination();
+      this.output = audioctx.createMediaStreamDestination();
 
       input.connect(delay);
       input.connect(drygain);
