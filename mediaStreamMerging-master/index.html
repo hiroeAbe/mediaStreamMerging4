@@ -40,7 +40,7 @@
       wetgain.connect(this.output);
       drygain.connect(this.output);
 
-      Setup = function(){
+      Setup = function(audioStream){
         var bypass = document.getElementById("bypass").checked;
         delay.delayTime.value = parseFloat(document.getElementById("time").value);
         feedback.gain.value = parseFloat(document.getElementById("feedback").value);
