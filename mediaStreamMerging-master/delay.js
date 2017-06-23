@@ -1,7 +1,6 @@
-var audioCtx = null;
+var audioCtx = new AudioContext();
 
 $(function(){
-  audioCtx = new AudioContext();
   console.log("audioCtx init");
 });
 
