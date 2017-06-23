@@ -32,16 +32,7 @@
       var feedback = audioctx.createGain();
       this.output = audioctx.createMediaStreamDestination();
 
-      input.connect(delay);
-      input.connect(drygain);
-      delay.connect(wetgain);
-      delay.connect(feedback);
-      feedback.connect(delay);
-      //wetgain.connect(this.output);
-      //drygain.connect(this.output);
 
-      wetgain.connect(audioctx.destination);
-      drygain.connect(audioctx.destination);
 
       Setup = function(audioStream){
         var bypass = document.getElementById("bypass").checked;
@@ -120,6 +111,18 @@
             function(audioStream){
               Highpass.setupFilter(audioStream);
               Lowpass.setupFilter(audioStream);
+
+              input.connect(delay);
+              input.connect(drygain);
+              delay.connect(wetgain);
+              delay.connect(feedback);
+              feedback.connect(delay);
+              //wetgain.connect(this.output);
+              //drygain.connect(this.output);
+
+              wetgain.connect(audioctx.destination);
+              drygain.connect(audioctx.destination);
+              
               Setup(audioStream);
               // できあがったoutputをvideoStreamに合流させる
               videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
