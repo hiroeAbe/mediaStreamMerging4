@@ -4,7 +4,6 @@ $(function(){
   console.log("audioCtx init");
 });
 
-var Delay = {};
 
 var src = null;
 var input = audioCtx.createGain();
@@ -14,7 +13,7 @@ var drygain = audioCtx.createGain();
 var feedback = audioCtx.createGain();
 this.output = audioCtx.createMediaStreamDestination();
 
-Delay.setup = function(audioStream) {
+setupDelay = function(audioStream) {
   // WebAudio API 関係の初期化
   console.log("delay setup");
   var bypass = document.getElementById("bypass").checked;
@@ -28,7 +27,7 @@ Delay.setup = function(audioStream) {
     drygain.gain.value = 1 - mix;
 }
 
-Delay.setupFilter = function(audioStream) {
+setupFilterDelay = function(audioStream) {
 
   input.connect(delay);
   input.connect(drygain);
