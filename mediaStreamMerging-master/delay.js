@@ -4,7 +4,7 @@ $(function(){
   console.log("audioCtx init");
 });
 
-var Delay = null;
+var Delay = {};
 
 var src = null;
 var input = audioCtx.createGain();
