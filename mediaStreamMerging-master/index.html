@@ -7,7 +7,6 @@
   <script type="text/javascript" src="lowpass.js"></script>
   <script type="text/javascript" src="highpass.js"></script>
 
-
   <table>
     <tr><td>Bypass :</td><td><input id="bypass" type="checkbox"/></td></tr>
     <tr><td>Time : </td><td><input type="text" size="8" id="time" value="0.25"/></td></tr>
@@ -34,104 +33,28 @@
       this.output = audioctx.createMediaStreamDestination();
 
 
-      Setup = function(audioStream){
-        var bypass = document.getElementById("bypass").checked;
-        delay.delayTime.value = parseFloat(document.getElementById("time").value);
-        feedback.gain.value = parseFloat(document.getElementById("feedback").value);
-        var mix = parseFloat(document.getElementById("mix").value);
-        src = audioctx.createMediaStreamSource(audioStream);
-        src.connect(input);
-        if(bypass) mix = 0;
-          wetgain.gain.value = mix;
-          drygain.gain.value = 1 - mix;
-      }
+       Setup = function(audioStream){
+         var bypass = document.getElementById("bypass").checked;
 
-      /*document.querySelector("input#bypass").addEventListener("change", Delay.setupDelay());
-      document.querySelector("input#time").addEventListener("change", Delay.setupDelay());
-      document.querySelector("input#feedback").addEventListener("change", Delay.setupDelay());
-      document.querySelector("input#mix").addEventListener("change", Delay.setupDelay());*/
-      document.querySelector("input#bypass").addEventListener("change", Setup());
-      document.querySelector("input#time").addEventListener("change", Setup());
-      document.querySelector("input#feedback").addEventListener("change",Setup());
-      document.querySelector("input#mix").addEventListener("change", Setup());
+             function(audioStream){
+               Highpass.setupFilter(audioStream);
+               Lowpass.setupFilter(audioStream);
 
-
-    peer.on('open', function(){
-      $('#my-id').text(peer.id);
-    });
-
-    // Receiving a call
-    peer.on('call', function(call){
-      // Answer the call automatically (instead of prompting user) for demo purposes
-      call.answer(window.localStream);
-      step3(call);
-    });
-    peer.on('error', function(err){
-      alert(err.message);
-      // Return to step 2 if error occurs
-      step2();
-    });
-
-    // Click handlers setup
-    $(function(){
-      $('#make-call').click(function(){
-        // Initiate a call!
-        var call = peer.call($('#callto-id').val(), window.localStream);
-
-        step3(call);
-      });
-
-      $('#end-call').click(function(){
-        window.existingCall.close();
-        step2();
-      });
-
-      // Retry if getUserMedia fails
-      $('#step1-retry').click(function(){
-        $('#step1-error').hide();
-        step1();
-      });
-
-      // Get things started
-      step1();
-    });
-
-    function step1 () {
-      Highpass.setup();
-　　　Lowpass.setup();
-     //Delay.setupDelay();
-      //Setup();
-      // (1) まずはビデオのみのストリームを取り出す
-      navigator.getUserMedia(
-        {audio: false, video: true},
-        function(videoStream){
-          // Set your video displays
-          $('#my-video').prop('src', URL.createObjectURL(videoStream));
-          window.localStream = videoStream;
-
-          // (2) 次に、音声のみのストリームを取り出す
-          navigator.getUserMedia(
-            {audio: true, video: false},
-            function(audioStream){
-              Highpass.setupFilter(audioStream);
-              Lowpass.setupFilter(audioStream);
-              Setup(audioStream);
-              input.connect(delay);
+             input.connect(delay);
               input.connect(drygain);
-              delay.connect(wetgain);
-              delay.connect(feedback);
-              feedback.connect(delay);
-              //wetgain.connect(this.output);
+             delay.connect(wetgain);
+            delay.connect(feedback);
+            feedback.connect(delay);
+             //wetgain.connect(this.output);
               //drygain.connect(this.output);
 
               wetgain.connect(audioctx.destination);
               drygain.connect(audioctx.destination);
 
-              //Delay.setupFilterDelay(audioStream);
-              // できあがったoutputをvideoStreamに合流させる
-              videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
+               Setup(audioStream);
+               // できあがったoutputをvideoStreamに合流させる
+               videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
-              //videoStream.addTrack(Delay.output.stream.getAudioTracks()[0]);
               step2();
             },
             function(){ $('#step1-error').show();　} //エラー表示
