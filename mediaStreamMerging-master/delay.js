@@ -4,13 +4,6 @@ $(function(){
   audioCtx = new AudioContext();
   console.log("audioCtx init");
 
-  var input = audioCtx.createGain();
-  var delay = audioCtx.createDelay();
-  var wetgain = audioCtx.createGain();
-  var drygain = audioCtx.createGain();
-  var feedback = audioCtx.createGain();
-  this.output = audioCtx.createMediaStreamDestination();
-  
 });
 
 /*var input = audioCtx.createGain();
@@ -24,6 +17,13 @@ setupDelay = function(audioStream) {
   // WebAudio API 関係の初期化
   console.log("delay setup");
 
+  var input = audioCtx.createGain();
+  var delay = audioCtx.createDelay();
+  var wetgain = audioCtx.createGain();
+  var drygain = audioCtx.createGain();
+  var feedback = audioCtx.createGain();
+  this.output = audioCtx.createMediaStreamDestination();
+  
   var bypass = document.getElementById("bypass").checked;
   delay.delayTime.value = parseFloat(document.getElementById("time").value);
   feedback.gain.value = parseFloat(document.getElementById("feedback").value);
