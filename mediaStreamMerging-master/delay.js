@@ -18,7 +18,7 @@ var drygain = audioCtx.createGain();
 var feedback = audioCtx.createGain();
 this.output = audioCtx.createMediaStreamDestination();*/
 
-Delay.setupDelay = function(audioStream) {
+setupDelay = function(audioStream) {
   // WebAudio API 関係の初期化
   console.log("delay setup");
   var audioCtx = new AudioContext();;
