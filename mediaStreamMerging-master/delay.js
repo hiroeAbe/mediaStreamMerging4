@@ -20,8 +20,8 @@ setupDelay = function(audioStream) {
   delay.delayTime.value = parseFloat(document.getElementById("time").value);
   feedback.gain.value = parseFloat(document.getElementById("feedback").value);
   var mix = parseFloat(document.getElementById("mix").value);
-  src = audioCtx.createMediaStreamSource(audioStream);
-  src.connect(input);
+  this.mic = audioCtx.createMediaStreamSource(audioStream);
+  this.mic.connect(input);
   if(bypass) mix = 0;
     wetgain.gain.value = mix;
     drygain.gain.value = 1 - mix;
