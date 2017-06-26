@@ -6,7 +6,6 @@
   <script type="text/javascript" src="https://skyway.io/dist/0.3/peer.js"></script>
   <script type="text/javascript" src="lowpass.js"></script>
   <script type="text/javascript" src="highpass.js"></script>
-  <script type="text/javascript" src="delay.js"></script>
 
 
   <table>
@@ -33,7 +32,6 @@
       var drygain = audioctx.createGain();
       var feedback = audioctx.createGain();
       this.output = audioctx.createMediaStreamDestination();
-
 
 
       Setup = function(audioStream){
@@ -129,7 +127,7 @@
               wetgain.connect(audioctx.destination);
               drygain.connect(audioctx.destination);
 
-              Delay.setupFilterDelay(audioStream);
+              //Delay.setupFilterDelay(audioStream);
               // できあがったoutputをvideoStreamに合流させる
               videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
