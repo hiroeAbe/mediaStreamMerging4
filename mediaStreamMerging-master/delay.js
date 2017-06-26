@@ -1,10 +1,15 @@
-//var audioCtx = new AudioContext();;
+var audioCtx = null
 
 $(function(){
-  //audioCtx = new AudioContext();
+  audioCtx = new AudioContext();
   console.log("audioCtx init");
 
 });
+
+var Delay = {
+  FREQ_MUL: 7000,
+  QUAL_MUL: 30,
+};
 
 /*var input = audioCtx.createGain();
 var delay = audioCtx.createDelay();
@@ -13,10 +18,10 @@ var drygain = audioCtx.createGain();
 var feedback = audioCtx.createGain();
 this.output = audioCtx.createMediaStreamDestination();*/
 
-setupDelay = function(audioStream) {
+Delay.setupDelay = function(audioStream) {
   // WebAudio API 関係の初期化
   console.log("delay setup");
-  var audioCtx = new AudioContext();;
+  //var audioCtx = new AudioContext();;
   var input = audioCtx.createGain();
   var delay = audioCtx.createDelay();
   var wetgain = audioCtx.createGain();
@@ -35,7 +40,7 @@ setupDelay = function(audioStream) {
     drygain.gain.value = 1 - mix;
 }
 
-setupFilterDelay = function(audioStream) {
+Delay.setupFilterDelay = function(audioStream) {
 
   input.connect(delay);
   input.connect(drygain);
