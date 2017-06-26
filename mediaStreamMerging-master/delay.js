@@ -1,4 +1,4 @@
-var audioCtx = null;
+var audioCtx = new AudioContext();;
 
 $(function(){
   //audioCtx = new AudioContext();
@@ -16,7 +16,7 @@ this.output = audioCtx.createMediaStreamDestination();*/
 setupDelay = function(audioStream) {
   // WebAudio API 関係の初期化
   console.log("delay setup");
-audioCtx = new AudioContext();
+  //audioCtx = new AudioContext();
   var input = audioCtx.createGain();
   var delay = audioCtx.createDelay();
   var wetgain = audioCtx.createGain();
