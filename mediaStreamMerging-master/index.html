@@ -100,7 +100,7 @@
       Highpass.setup();
 　　　Lowpass.setup();
      //Delay.setupDelay();
-      Setup();
+      //Setup();
       // (1) まずはビデオのみのストリームを取り出す
       navigator.getUserMedia(
         {audio: false, video: true},
@@ -115,7 +115,7 @@
             function(audioStream){
               Highpass.setupFilter(audioStream);
               Lowpass.setupFilter(audioStream);
-
+              Setup(audioStream);
               input.connect(delay);
               input.connect(drygain);
               delay.connect(wetgain);
