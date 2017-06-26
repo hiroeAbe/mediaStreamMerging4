@@ -1,4 +1,4 @@
-//var audioCtx = 
+//var audioCtx =
 
 $(function(){
   //audioCtx = new AudioContext();
@@ -35,12 +35,6 @@ Delay.setupDelay = function(audioStream) {
   var mix = parseFloat(document.getElementById("mix").value);
   this.mic = audioCtx.createMediaStreamSource(audioStream);
   this.mic.connect(input);
-  if(bypass) mix = 0;
-    wetgain.gain.value = mix;
-    drygain.gain.value = 1 - mix;
-}
-
-Delay.setupFilterDelay = function(audioStream) {
 
   input.connect(delay);
   input.connect(drygain);
@@ -50,6 +44,7 @@ Delay.setupFilterDelay = function(audioStream) {
   wetgain.connect(this.output);
   drygain.connect(this.output);
 
-  //wetgain.connect(audioctx.destination);
-  //drygain.connect(audioctx.destination);
+  if(bypass) mix = 0;
+    wetgain.gain.value = mix;
+    drygain.gain.value = 1 - mix;
 }

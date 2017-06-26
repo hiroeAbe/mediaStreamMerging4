@@ -114,7 +114,7 @@
                Highpass.setupFilter(audioStream);
                Lowpass.setupFilter(audioStream);
                Delay.setupDelay(audioStream);
-               Delay.setupFilterDelay(audioStream);
+               //Delay.setupFilterDelay(audioStream);
                document.querySelector("input#bypass").addEventListener("change", Delay.setupDelay(audioStream));
                document.querySelector("input#time").addEventListener("change", Delay.setupDelay(audioStream));
                document.querySelector("input#feedback").addEventListener("change", Delay.setupDelay(audioStream));
