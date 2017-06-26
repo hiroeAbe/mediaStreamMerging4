@@ -24,7 +24,7 @@
     // PeerJS object
     var peer = new Peer({ key: '26b7f1a7-ea54-42e9-872a-f3bb803d816b', debug: 3});
 
-    /*  var audioctx = new AudioContext();
+      var audioctx = new AudioContext();
 
       var src = null;
       var input = audioctx.createGain();
@@ -47,12 +47,15 @@
           wetgain.gain.value = mix;
           drygain.gain.value = 1 - mix;
       }
-*/
-      document.querySelector("input#bypass").addEventListener("change", Delay.setupDelay());
+
+      /*document.querySelector("input#bypass").addEventListener("change", Delay.setupDelay());
       document.querySelector("input#time").addEventListener("change", Delay.setupDelay());
       document.querySelector("input#feedback").addEventListener("change", Delay.setupDelay());
-      document.querySelector("input#mix").addEventListener("change", Delay.setupDelay());
-
+      document.querySelector("input#mix").addEventListener("change", Delay.setupDelay());*/
+      document.querySelector("input#bypass").addEventListener("change", Setup());
+      document.querySelector("input#time").addEventListener("change", Setup());
+      document.querySelector("input#feedback").addEventListener("change",Setup());
+      document.querySelector("input#mix").addEventListener("change", Setup());
 
 
     peer.on('open', function(){
@@ -98,8 +101,8 @@
     function step1 () {
       Highpass.setup();
 　　　Lowpass.setup();
-     Delay.setupDelay();
-      //Setup();
+     //Delay.setupDelay();
+      Setup();
       // (1) まずはビデオのみのストリームを取り出す
       navigator.getUserMedia(
         {audio: false, video: true},
@@ -115,22 +118,22 @@
               Highpass.setupFilter(audioStream);
               Lowpass.setupFilter(audioStream);
 
-              //input.connect(delay);
-              //input.connect(drygain);
-              //delay.connect(wetgain);
-              //delay.connect(feedback);
-              //feedback.connect(delay);
+              input.connect(delay);
+              input.connect(drygain);
+              delay.connect(wetgain);
+              delay.connect(feedback);
+              feedback.connect(delay);
               //wetgain.connect(this.output);
               //drygain.connect(this.output);
 
-              //wetgain.connect(audioctx.destination);
-              //drygain.connect(audioctx.destination);
+              wetgain.connect(audioctx.destination);
+              drygain.connect(audioctx.destination);
 
               Delay.setupFilterDelay(audioStream);
               // できあがったoutputをvideoStreamに合流させる
               videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
-              videoStream.addTrack(Delay.output.stream.getAudioTracks()[0]);
+              //videoStream.addTrack(Delay.output.stream.getAudioTracks()[0]);
               step2();
             },
             function(){ $('#step1-error').show();　} //エラー表示
