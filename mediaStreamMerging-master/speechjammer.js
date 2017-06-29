@@ -21,7 +21,7 @@ SpeechJammer.setupSJ = function() {
   var drygain = audioCtx.createGain();
   var feedback = audioCtx.createGain();
   //this.output = audioCtx.createMediaStreamDestination();
-  this.output = audioCtx.destination();
+
   //var bypass = document.getElementById("bypass").checked;
   //delay.delayTime.value = parseFloat(document.getElementById("time").value);
   //feedback.gain.value = parseFloat(document.getElementById("feedback").value);
@@ -38,7 +38,7 @@ SpeechJammer.setupFilter = function(audioStream){
   delay.connect(wetgain);
   delay.connect(feedback);
   feedback.connect(delay);
-  wetgain.connect(this.output);
+  wetgain.connect(audioCtx.destination);
 
 
   //if(bypass) mix = 0;
@@ -53,8 +53,8 @@ SpeechJammer.toggleFilter = function(element) {
   if(element.checked) {
     this.mic.connect(this.delay);
     this.delay.connect(this.wetgain);
-    this.wetgain.connect(this.output);
+    this.wetgain.connect(audioCtx.destination);
   } else {
-    this.mic.connect(this.output);
+    this.mic.connect(audioCtx.destination);
   }
 }
