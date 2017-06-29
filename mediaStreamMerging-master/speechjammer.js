@@ -31,13 +31,13 @@ SpeechJammer.setupSJ = function(audioStream) {
   this.mic = audioCtx.createMediaStreamSource(audioStream);
   this.mic.connect(input);
 
-  /*input.connect(delay);
+  input.connect(delay);
   input.connect(drygain);
   delay.connect(wetgain);
   delay.connect(feedback);
   feedback.connect(delay);
   wetgain.connect(audioCtx.destination);
-  drygain.connect(audioCtx.destination);*/
+  drygain.connect(audioCtx.destination);
 
   //if(bypass) mix = 0;
   //  wetgain.gain.value = mix;
