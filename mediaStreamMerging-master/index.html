@@ -10,10 +10,10 @@
 
 
   <table>
-    <tr><td>Bypass :</td><td><input id="bypass" type="checkbox"/></td></tr>
-    <tr><td>Time : </td><td><input type="text" size="8" id="time" value="0.25"/></td></tr>
-    <tr><td>Feedback : </td><td><input type="text" size="8" id="feedback" value="0.4"/></td></tr>
-    <tr><td>Mix : </td><td><input type="text" size="8" id="mix" value="0.4"/></td></tr>
+    <tr><td>Bypass :</td><td><input id="bypass" type="checkbox" oninput="Delay.setupDelay(this)"/></td></tr>
+    <tr><td>Time : </td><td><input type="text" size="8" id="time" value="0.25" oninput="Delay.setupDelay(this)"/></td></tr>
+    <tr><td>Feedback : </td><td><input type="text" size="8" id="feedback" value="0.4" oninput="Delay.setupDelay(this)"/></td></tr>
+    <tr><td>Mix : </td><td><input type="text" size="8" id="mix" value="0.4"oninput="Delay.setupDelay(this)"/></td></tr>
   </table>
 
   <script>
@@ -24,33 +24,6 @@
     // PeerJS object
     var peer = new Peer({ key: '26b7f1a7-ea54-42e9-872a-f3bb803d816b', debug: 3});
 
-      /*var audioctx = new AudioContext();
-
-      var src = null;
-      var input = audioctx.createGain();
-      var delay = audioctx.createDelay();
-      var wetgain = audioctx.createGain();
-      var drygain = audioctx.createGain();
-      var feedback = audioctx.createGain();
-      this.output = audioctx.createMediaStreamDestination();
-
-
-       Setup = function(audioStream){
-         var bypass = document.getElementById("bypass").checked;
-         delay.delayTime.value = parseFloat(document.getElementById("time").value);
-         feedback.gain.value = parseFloat(document.getElementById("feedback").value);
-         var mix = parseFloat(document.getElementById("mix").value);
-         src = audioctx.createMediaStreamSource(audioStream);
-        src.connect(input);
-        if(bypass) mix = 0;
-            wetgain.gain.value = mix;
-            drygain.gain.value = 1 - mix;
-        }
-
-               document.querySelector("input#bypass").addEventListener("change", Delay.setupDelay());
-               document.querySelector("input#time").addEventListener("change", Delay.setupDelay());
-               document.querySelector("input#feedback").addEventListener("change", Delay.setupDelay());
-               document.querySelector("input#mix").addEventListener("change", Delay.setupDelay());*/
 
 
 
@@ -120,18 +93,7 @@
                document.querySelector("input#feedback").addEventListener("change", Delay.setupDelay(audioStream));
                document.querySelector("input#mix").addEventListener("change", Delay.setupDelay(audioStream));
 
-            /* input.connect(delay);
-              input.connect(drygain);
-             delay.connect(wetgain);
-            delay.connect(feedback);
-            feedback.connect(delay);*/
-             //wetgain.connect(this.output);
-              //drygain.connect(this.output);
 
-              //wetgain.connect(audioctx.destination);
-              //drygain.connect(audioctx.destination);
-
-               //Setup(audioStream);
                // できあがったoutputをvideoStreamに合流させる
                videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
