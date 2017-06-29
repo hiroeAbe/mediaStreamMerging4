@@ -90,6 +90,7 @@
                Lowpass.setupFilter(audioStream);
                Delay.setupDelay(audioStream);
                SpeechJammer.setupSJ(audioStream);
+
                //Delay.setupFilterDelay(audioStream);
                document.querySelector("input#bypass").addEventListener("change", Delay.setupDelay(audioStream));
                document.querySelector("input#time").addEventListener("change", Delay.setupDelay(audioStream));
@@ -149,7 +150,7 @@
         <video id="their-video" autoplay></video>
         <video id="my-video" muted="true" autoplay></video>
         <p class="effectcontrol">
-          sHighpass on: <input type="checkbox" checked="false"
+          Highpass on: <input type="checkbox" checked="false"
             onchange="Highpass.toggleFilter(this);"/>
          Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="Highpass.changeFrequency(this);"/>
           Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="Highpass.changeQuality(this);"/>

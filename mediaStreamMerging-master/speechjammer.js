@@ -25,19 +25,17 @@ SpeechJammer.setupSJ = function(audioStream) {
   //var bypass = document.getElementById("bypass").checked;
   //delay.delayTime.value = parseFloat(document.getElementById("time").value);
   //feedback.gain.value = parseFloat(document.getElementById("feedback").value);
-  delay.delayTime.value = 0.2;
+  delay.delayTime.value = 0.3;
   feedback.gain.value = 0.4;
   //var mix = parseFloat(document.getElementById("mix").value);
   this.mic = audioCtx.createMediaStreamSource(audioStream);
   this.mic.connect(input);
 
   input.connect(delay);
-  input.connect(drygain);
   delay.connect(wetgain);
   delay.connect(feedback);
   feedback.connect(delay);
   wetgain.connect(audioCtx.destination);
-  drygain.connect(audioCtx.destination);
 
   //if(bypass) mix = 0;
   //  wetgain.gain.value = mix;
