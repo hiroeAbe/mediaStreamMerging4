@@ -16,17 +16,17 @@ SpeechJammer.setupSJ = function() {
   console.log("sj setup");
   var audioCtx = new AudioContext();;
   var input = audioCtx.createGain();
-  var delay = audioCtx.createDelay();
-  var wetgain = audioCtx.createGain();
-  var drygain = audioCtx.createGain();
-  var feedback = audioCtx.createGain();
+  this.delay = audioCtx.createDelay();
+  this.wetgain = audioCtx.createGain();
+  this.drygain = audioCtx.createGain();
+  this.feedback = audioCtx.createGain();
   //this.output = audioCtx.createMediaStreamDestination();
 
   //var bypass = document.getElementById("bypass").checked;
   //delay.delayTime.value = parseFloat(document.getElementById("time").value);
   //feedback.gain.value = parseFloat(document.getElementById("feedback").value);
-  delay.delayTime.value = 0.3;
-  feedback.gain.value = 0.4;
+  this.delay.delayTime.value = 0.3;
+  this.feedback.gain.value = 0.4;
 }
 SpeechJammer.setupFilter = function(audioStream){
   //var mix = parseFloat(document.getElementById("mix").value);
