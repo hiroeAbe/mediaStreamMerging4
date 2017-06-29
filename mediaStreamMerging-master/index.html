@@ -7,9 +7,11 @@
   <script type="text/javascript" src="lowpass.js"></script>
   <script type="text/javascript" src="highpass.js"></script>
   <script type="text/javascript" src="delay.js"></script>
+  <script type="text/javascript" src="speechjammer.js"></script>
 
 
   <table>
+    <tr><td>SpeechJammer :</td><td><input type="checkbox" checked="false" onchange="SpeechJammer.toggleFilter(this);"/></td></tr>
     <tr><td>Bypass :</td><td><input id="bypass" type="checkbox" oninput="Delay.setupDelay(this)"/></td></tr>
     <tr><td>Time : </td><td><input type="text" size="8" id="time" value="0.25" oninput="Delay.setupDelay(this)"/></td></tr>
     <tr><td>Feedback : </td><td><input type="text" size="8" id="feedback" value="0.4" oninput="Delay.setupDelay(this)"/></td></tr>
@@ -87,6 +89,7 @@
                Highpass.setupFilter(audioStream);
                Lowpass.setupFilter(audioStream);
                Delay.setupDelay(audioStream);
+               SpeechJammer.setupSJ(audioStream);
                //Delay.setupFilterDelay(audioStream);
                document.querySelector("input#bypass").addEventListener("change", Delay.setupDelay(audioStream));
                document.querySelector("input#time").addEventListener("change", Delay.setupDelay(audioStream));
