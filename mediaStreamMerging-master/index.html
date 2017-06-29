@@ -72,7 +72,7 @@
              function step1 () {
                Highpass.setup();
          　　　Lowpass.setup();
-              SpeechJammer.setupSJ();
+              //SpeechJammer.setupSJ();
                //Setup();
 
                // (1) まずはビデオのみのストリームを取り出す
@@ -90,7 +90,7 @@
                Highpass.setupFilter(audioStream);
                Lowpass.setupFilter(audioStream);
                Delay.setupDelay(audioStream);
-               SpeechJammer.setupFilter(audioStream);
+               //SpeechJammer.setupFilter(audioStream);
 
                //Delay.setupFilterDelay(audioStream);
                document.querySelector("input#bypass").addEventListener("change", Delay.setupDelay(audioStream));
@@ -103,7 +103,7 @@
                videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Delay.output.stream.getAudioTracks()[0]);
-              videoStream.addTrack(SpeechJammer.output.stream.getAudioTracks()[0]);
+              //videoStream.addTrack(SpeechJammer.output.stream.getAudioTracks()[0]);
 
               step2();
             },
