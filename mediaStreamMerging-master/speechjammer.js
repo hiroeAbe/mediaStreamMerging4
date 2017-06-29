@@ -25,19 +25,19 @@ SpeechJammer.setupSJ = function(audioStream) {
   //var bypass = document.getElementById("bypass").checked;
   //delay.delayTime.value = parseFloat(document.getElementById("time").value);
   //feedback.gain.value = parseFloat(document.getElementById("feedback").value);
-  delay.delayTime.value = 0.25;
+  delay.delayTime.value = 0.2;
   feedback.gain.value = 0.4;
   //var mix = parseFloat(document.getElementById("mix").value);
   this.mic = audioCtx.createMediaStreamSource(audioStream);
   this.mic.connect(input);
 
-  input.connect(delay);
+  /*input.connect(delay);
   input.connect(drygain);
   delay.connect(wetgain);
   delay.connect(feedback);
   feedback.connect(delay);
   wetgain.connect(audioCtx.destination);
-  drygain.connect(audioCtx.destination);
+  drygain.connect(audioCtx.destination);*/
 
   //if(bypass) mix = 0;
   //  wetgain.gain.value = mix;
@@ -48,13 +48,11 @@ SpeechJammer.toggleFilter = function(element) {
   this.input.disconnect(0);
   this.delay.disconnect(0);
   this.wetgain.disconnect(0);
-  this.drygain.disconnect(0);
   if(element.checked) {
     this.input.connect(this.delay);
     this.delay.connect(this.wetgain);
     this.wetgain.connect(audioCtx.destination);
   } else {
-    this.input.connect(this.drygain);
-    this.drygain.connect(audioCtx.destination);
+    this.input.connect(audioCtx.destination);
   }
 }
