@@ -29,28 +29,42 @@ SpeechJammer.setupSJ = function(audioStream) {
   feedback.gain.value = 0.4;
   //var mix = parseFloat(document.getElementById("mix").value);
   this.mic = audioCtx.createMediaStreamSource(audioStream);
-  this.mic.connect(input);
+  this.mic.connect(delay);
 
-  input.connect(delay);
-  delay.connect(wetgain);
+  //input.connect(delay);
+
+  /*delay.connect(wetgain);
   delay.connect(feedback);
   feedback.connect(delay);
-  wetgain.connect(audioCtx.destination);
+  wetgain.connect(audioCtx.destination);*/
+
+  function(element) {
+    this.mic.disconnect(0);
+    this.delay.disconnect(0);
+    this.wetgain.disconnect(0);
+    if(element.checked) {
+      this.mic.connect(this.delay);
+      this.delay.connect(this.wetgain);
+      this.wetgain.connect(audioCtx.destination);
+    } else {
+      this.mic.connect(audioCtx.destination);
+    }
+  }
 
   //if(bypass) mix = 0;
   //  wetgain.gain.value = mix;
   //  drygain.gain.value = 1 - mix;
 }
 
-SpeechJammer.toggleFilter = function(element) {
-  this.input.disconnect(0);
+/*SpeechJammer.toggleFilter = function(element) {
+  this.mic.disconnect(0);
   this.delay.disconnect(0);
   this.wetgain.disconnect(0);
   if(element.checked) {
-    this.input.connect(this.delay);
+    this.mic.connect(this.delay);
     this.delay.connect(this.wetgain);
     this.wetgain.connect(audioCtx.destination);
   } else {
-    this.input.connect(audioCtx.destination);
+    this.mic.connect(audioCtx.destination);
   }
-}
+}*/

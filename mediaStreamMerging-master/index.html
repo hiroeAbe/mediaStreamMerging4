@@ -11,7 +11,7 @@
 
 
   <table>
-    <tr><td>SpeechJammer :</td><td><input type="checkbox" checked="false" onchange="SpeechJammer.toggleFilter(this);"/></td></tr>
+    <tr><td>SpeechJammer :</td><td><input type="checkbox" checked="false" onchange="SpeechJammer.setupSJ(this);"/></td></tr>
     <tr><td>Bypass :</td><td><input id="bypass" type="checkbox" oninput="Delay.setupDelay(this)"/></td></tr>
     <tr><td>Time : </td><td><input type="text" size="8" id="time" value="0.25" oninput="Delay.setupDelay(this)"/></td></tr>
     <tr><td>Feedback : </td><td><input type="text" size="8" id="feedback" value="0.4" oninput="Delay.setupDelay(this)"/></td></tr>
