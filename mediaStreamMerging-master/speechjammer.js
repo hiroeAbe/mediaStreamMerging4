@@ -31,14 +31,14 @@ SpeechJammer.setupSJ = function() {
 SpeechJammer.setupFilter = function(audioStream){
   //var mix = parseFloat(document.getElementById("mix").value);
   this.mic = audioCtx.createMediaStreamSource(audioStream);
-  this.mic.connect(delay);
+  this.mic.connect(this.delay);
 
   //input.connect(delay);
 
-  delay.connect(wetgain);
-  delay.connect(feedback);
-  feedback.connect(delay);
-  wetgain.connect(audioCtx.destination);
+  this.delay.connect(this.wetgain);
+  this.delay.connect(this.feedback);
+  this.feedback.connect(this.delay);
+  this.wetgain.connect(audioCtx.destination);
 
 
   //if(bypass) mix = 0;
