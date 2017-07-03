@@ -93,10 +93,20 @@
                //SpeechJammer.setupFilter(audioStream);
 
                //Delay.setupFilterDelay(audioStream);
-               document.querySelector("input#bypass").addEventListener("change", Delay.setUp);
-               document.querySelector("input#time").addEventListener("change", Delay.setUp);
-               document.querySelector("input#feedback").addEventListener("change", Delay.setUp);
-               document.querySelector("input#mix").addEventListener("change", Delay.setUp);
+               const Setup = () => {
+                   var bypass = document.getElementById("bypass").checked;
+                   delay.delayTime.value = parseFloat(document.getElementById("time").value);
+                   feedback.gain.value = parseFloat(document.getElementById("feedback").value);
+                   var mix = parseFloat(document.getElementById("mix").value);
+                   if(bypass) mix = 0;
+                     wetgain.gain.value = mix;
+                     drygain.gain.value = 1 - mix;
+               }
+
+               document.querySelector("input#bypass").addEventListener("change",Setup);
+               document.querySelector("input#time").addEventListener("change",Setup);
+               document.querySelector("input#feedback").addEventListener("change",Setup);
+               document.querySelector("input#mix").addEventListener("change",Setup);
 
 
                // できあがったoutputをvideoStreamに合流させる

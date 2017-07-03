@@ -41,13 +41,3 @@ Delay.setupDelay = function(audioStream) {
   //  wetgain.gain.value = mix;
   //  drygain.gain.value = 1 - mix;
 }
-
-const Delay.setUp = () => {
-    var bypass = document.getElementById("bypass").checked;
-    delay.delayTime.value = parseFloat(document.getElementById("time").value);
-    feedback.gain.value = parseFloat(document.getElementById("feedback").value);
-    var mix = parseFloat(document.getElementById("mix").value);
-    if(bypass) mix = 0;
-      wetgain.gain.value = mix;
-      drygain.gain.value = 1 - mix;
-}
