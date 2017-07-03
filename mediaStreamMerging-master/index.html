@@ -107,7 +107,7 @@
                document.querySelector("input#time").addEventListener("change",Setup);
                document.querySelector("input#feedback").addEventListener("change",Setup);
                document.querySelector("input#mix").addEventListener("change",Setup);
-
+               Setup();
 
                // できあがったoutputをvideoStreamに合流させる
                videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
