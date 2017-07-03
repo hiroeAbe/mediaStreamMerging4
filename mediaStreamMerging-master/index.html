@@ -12,10 +12,10 @@
 
   <table>
     <tr><td>SpeechJammer :</td><td><input type="checkbox" checked="false" onchange="SpeechJammer.toggleFilter(this);"/></td></tr>
-    <tr><td>Bypass :</td><td><input id="bypass" type="checkbox" oninput="Delay.setupDelay(this)"/></td></tr>
-    <tr><td>Time : </td><td><input type="text" size="8" id="time" value="0.25" oninput="Delay.setupDelay(this)"/></td></tr>
-    <tr><td>Feedback : </td><td><input type="text" size="8" id="feedback" value="0.4" oninput="Delay.setupDelay(this)"/></td></tr>
-    <tr><td>Mix : </td><td><input type="text" size="8" id="mix" value="0.4"oninput="Delay.setupDelay(this)"/></td></tr>
+    <tr><td>Bypass :</td><td><input id="bypass" type="checkbox" /></td></tr>
+    <tr><td>Time : </td><td><input type="text" size="8" id="time" value="0.25" /></td></tr>
+    <tr><td>Feedback : </td><td><input type="text" size="8" id="feedback" value="0.4" /></td></tr>
+    <tr><td>Mix : </td><td><input type="text" size="8" id="mix" value="0.4"/></td></tr>
   </table>
 
   <script>
@@ -89,20 +89,20 @@
              function(audioStream){
                Highpass.setupFilter(audioStream);
                Lowpass.setupFilter(audioStream);
-               //Delay.setupDelay(audioStream);
+               Delay.setupDelay(audioStream);
                //SpeechJammer.setupFilter(audioStream);
 
                //Delay.setupFilterDelay(audioStream);
-               document.querySelector("input#bypass").addEventListener("change", Delay.setupDelay(audioStream));
-               document.querySelector("input#time").addEventListener("change", Delay.setupDelay(audioStream));
-               document.querySelector("input#feedback").addEventListener("change", Delay.setupDelay(audioStream));
-               document.querySelector("input#mix").addEventListener("change", Delay.setupDelay(audioStream));
+               document.querySelector("input#bypass").addEventListener("change", Delay.setUp);
+               document.querySelector("input#time").addEventListener("change", Delay.setUp);
+               document.querySelector("input#feedback").addEventListener("change", Delay.setUp);
+               document.querySelector("input#mix").addEventListener("change", Delay.setUp);
 
 
                // できあがったoutputをvideoStreamに合流させる
                videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
-              //videoStream.addTrack(Delay.output.stream.getAudioTracks()[0]);
+              videoStream.addTrack(Delay.output.stream.getAudioTracks()[0]);
               //videoStream.addTrack(SpeechJammer.output.stream.getAudioTracks()[0]);
 
               step2();
