@@ -95,7 +95,7 @@
                //Delay.setupFilterDelay(audioStream);
                const Setup = () => {
                    var bypass = document.getElementById("bypass").checked;
-                   delay.delayTime.value = parseFloat(document.getElementById("time").value);
+                   Delay.setupDelay(audioStream).delay.delayTime.value = parseFloat(document.getElementById("time").value);
                    feedback.gain.value = parseFloat(document.getElementById("feedback").value);
                    var mix = parseFloat(document.getElementById("mix").value);
                    if(bypass) mix = 0;
