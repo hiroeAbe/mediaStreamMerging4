@@ -11,7 +11,7 @@ var SpeechJammer = {
 };
 
 
-SpeechJammer.setupSJ = function() {
+SpeechJammer.setupSJ = function(audioStream) {
   // WebAudio API 関係の初期化
   console.log("sj setup");
   var audioCtx = new AudioContext();;
