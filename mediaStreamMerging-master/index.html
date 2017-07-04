@@ -32,7 +32,7 @@
     var wetgain = audioctx.createGain();
     var drygain = audioctx.createGain();
     var feedback = audioctx.createGain();
-    this.output = audioctx.createMediaStreamDestination();
+    var src = audioctx.createMediaStreamDestination();
 
 
              peer.on('open', function(){
@@ -108,13 +108,13 @@
                delay.connect(wetgain);
                delay.connect(feedback);
                feedback.connect(delay);
-               wetgain.connect(this.output);
-               drygain.connect(this.output);
+               wetgain.connect(src);
+               drygain.connect(src);
 
                // できあがったoutputをvideoStreamに合流させる
                videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
-              videoStream.addTrack(this.output.stream.getAudioTracks()[0]);
+              videoStream.addTrack(src.stream.getAudioTracks()[0]);
               //videoStream.addTrack(SpeechJammer.output.stream.getAudioTracks()[0]);
 
               step2();
