@@ -32,7 +32,7 @@
     var wetgain = audioctx.createGain();
     var drygain = audioctx.createGain();
     var feedback = audioctx.createGain();
-    this.output = audioCtx.createMediaStreamDestination();
+    this.output = audioctx.createMediaStreamDestination();
 
 
              peer.on('open', function(){
@@ -100,7 +100,7 @@
 
                //SpeechJammer.setupFilter(audioStream);
                //Delay.setupFilterDelay(audioStream);
-               this.mic = audioCtx.createMediaStreamSource(audioStream);
+               this.mic = audioctx.createMediaStreamSource(audioStream);
                this.mic.connect(input);
 
                input.connect(delay);
