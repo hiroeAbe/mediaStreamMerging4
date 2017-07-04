@@ -19,25 +19,20 @@
   </table>
 
   <script>
-
-
-  var audioctx = new AudioContext();
-
-  var input = audioctx.createGain();
-  var delay = audioctx.createDelay();
-  var wetgain = audioctx.createGain();
-  var drygain = audioctx.createGain();
-  var feedback = audioctx.createGain();
-  this.output = audioCtx.createMediaStreamDestination();
-
-
     // Compatibility shim
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
     // PeerJS object
     var peer = new Peer({ key: '26b7f1a7-ea54-42e9-872a-f3bb803d816b', debug: 3});
 
+    var audioctx = new AudioContext();
 
+    var input = audioctx.createGain();
+    var delay = audioctx.createDelay();
+    var wetgain = audioctx.createGain();
+    var drygain = audioctx.createGain();
+    var feedback = audioctx.createGain();
+    this.output = audioCtx.createMediaStreamDestination();
 
 
              peer.on('open', function(){
