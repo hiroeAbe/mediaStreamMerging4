@@ -20,6 +20,27 @@
 
   <script>
 
+  setupDelay = function(audioStream) {
+  var audioctx = new AudioContext();
+
+  var input = audioctx.createGain();
+  var delay = audioctx.createDelay();
+  var wetgain = audioctx.createGain();
+  var drygain = audioctx.createGain();
+  var feedback = audioctx.createGain();
+  this.output = audioCtx.createMediaStreamDestination();
+  this.mic = audioCtx.createMediaStreamSource(audioStream);
+  this.mic.connect(input);
+
+  input.connect(delay);
+  input.connect(drygain);
+  delay.connect(wetgain);
+  delay.connect(feedback);
+  feedback.connect(delay);
+  wetgain.connect(this.output);
+  drygain.connect(this.output);
+  }
+
     // Compatibility shim
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
@@ -136,28 +157,7 @@
     }
 
   </script>
-  <script type="text/javascript">
-  setupDelay = function(audioStream) {
-  var audioctx = new AudioContext();
 
-  var input = audioctx.createGain();
-  var delay = audioctx.createDelay();
-  var wetgain = audioctx.createGain();
-  var drygain = audioctx.createGain();
-  var feedback = audioctx.createGain();
-  this.output = audioCtx.createMediaStreamDestination();
-  this.mic = audioCtx.createMediaStreamSource(audioStream);
-  this.mic.connect(input);
-
-  input.connect(delay);
-  input.connect(drygain);
-  delay.connect(wetgain);
-  delay.connect(feedback);
-  feedback.connect(delay);
-  wetgain.connect(this.output);
-  drygain.connect(this.output);
-}
-</script>
   <script type="text/javascript">
     const Setup = () => {
       var bypass = document.getElementById("bypass").checked;
