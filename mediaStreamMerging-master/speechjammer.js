@@ -20,7 +20,7 @@ SpeechJammer.setupSJ = function() {
   var wetgain = audioCtx.createGain();
   var drygain = audioCtx.createGain();
   var feedback = audioCtx.createGain();
-  this.output = audioCtx.destination();
+  //this.output = audioCtx.destination();
 
   //var bypass = document.getElementById("bypass").checked;
   //delay.delayTime.value = parseFloat(document.getElementById("time").value);
@@ -34,8 +34,8 @@ SpeechJammer.setupSJ = function() {
   delay.connect(wetgain);
   delay.connect(feedback);
   feedback.connect(delay);
-  wetgain.connect(this.output);
-  drygain.connect(this.output);
+  wetgain.connect(audioCtx.destination);
+  drygain.connect(audioCtx.destination);
 
   //if(bypass) mix = 0;
   //  wetgain.gain.value = mix;
