@@ -11,15 +11,17 @@ var HighFrequency = {
 };
 var highfrequencyNode = audioCtx.createGain();
 
-HighFrequency.setup = function() {
+//HighFrequency.setup = function() {
   // WebAudio API 関係の初期化
-  console.log("HighFrequency setup");
-  this.output = audioCtx.createMediaStreamDestination();
+  //console.log("HighFrequency setup");
+  //this.output = audioCtx.createMediaStreamDestination();
   //var highfrequencyNode = audioCtx.createGain();
   //highfrequencyNode.frequency.value = 440;
-}
+//}
 
 HighFrequency.setupFilter = function(audioStream) {
+  console.log("HighFrequency setup");
+  this.output = audioCtx.createMediaStreamDestination();
   this.mic = audioCtx.createMediaStreamSource(audioStream);
   // エフェクトを掛けて(ローパス)
   this.mic.connect(highfrequencyNode);
