@@ -14,8 +14,8 @@ HighFrequency.setup = function() {
   // WebAudio API 関係の初期化
   console.log("HighFrequency setup");
   this.output = audioCtx.createMediaStreamDestination();
-  this.highfrequencyNode = audioCtx.createGain();
-  this.highfrequencyNode.frequency.value = 440;
+  var highfrequencyNode = audioCtx.createGain();
+  //highfrequencyNode.frequency.value = 440;
 }
 
 HighFrequency.setupFilter = function(audioStream) {
