@@ -11,7 +11,7 @@
 
 
   <table>
-    <tr><td>SpeechJammer :</td><td><input type="checkbox" checked="false" onchange="SpeechJammer.toggleFilter(this);"/></td></tr>
+    <tr><td>SpeechJammer :</td><td><input id="bypass" type="checkbox" checked="false" /></td></tr>
     <tr><td>Bypass :</td><td><input id="bypass" type="checkbox" /></td></tr>
     <tr><td>Time : </td><td><input type="text" size="8" id="time" value="0.25" /></td></tr>
     <tr><td>Feedback : </td><td><input type="text" size="8" id="feedback" value="0.4" /></td></tr>
@@ -89,6 +89,7 @@
                Lowpass.setupFilter(audioStream);
 
                Delay.setupDelay(audioStream);
+               SpeechJammer.setupSJ(audioStream);
                //Delay.setupFilterDelay(audioStream);
               // document.querySelector("input#bypass").addEventListener("change", Delay.setupDelay(audioStream));
               // document.querySelector("input#time").addEventListener("change", Delay.setupDelay(audioStream));
@@ -99,7 +100,7 @@
                videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Delay.output.stream.getAudioTracks()[0]);
-              //videoStream.addTrack(SpeechJammer.output.stream.getAudioTracks()[0]);
+              videoStream.addTrack(SpeechJammer.output.stream.getAudioTracks()[0]);
 
               step2();
             },
@@ -148,7 +149,7 @@
         <video id="their-video" autoplay></video>
         <video id="my-video" muted="true" autoplay></video>
         <p class="effectcontrol">
-          bbHighpass on: <input type="checkbox" checked="false"
+          Highpass on: <input type="checkbox" checked="false"
             onchange="Highpass.toggleFilter(this);"/>
          Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="Highpass.changeFrequency(this);"/>
           Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="Highpass.changeQuality(this);"/>

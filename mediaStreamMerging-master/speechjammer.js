@@ -16,45 +16,44 @@ SpeechJammer.setupSJ = function() {
   console.log("sj setup");
   var audioCtx = new AudioContext();;
   var input = audioCtx.createGain();
-  this.delay = audioCtx.createDelay();
-  this.wetgain = audioCtx.createGain();
-  this.drygain = audioCtx.createGain();
-  this.feedback = audioCtx.createGain();
-  //this.output = audioCtx.createMediaStreamDestination();
+  var delay = audioCtx.createDelay();
+  var wetgain = audioCtx.createGain();
+  var drygain = audioCtx.createGain();
+  var feedback = audioCtx.createGain();
+  this.output = audioCtx.destination();
 
   //var bypass = document.getElementById("bypass").checked;
   //delay.delayTime.value = parseFloat(document.getElementById("time").value);
   //feedback.gain.value = parseFloat(document.getElementById("feedback").value);
-  this.delay.delayTime.value = 0.3;
-  this.feedback.gain.value = 0.4;
-}
-SpeechJammer.setupFilter = function(audioStream){
   //var mix = parseFloat(document.getElementById("mix").value);
   this.mic = audioCtx.createMediaStreamSource(audioStream);
-  this.mic.connect(this.delay);
+  this.mic.connect(input);
 
-  //input.connect(delay);
-
-  this.delay.connect(this.wetgain);
-  this.delay.connect(this.feedback);
-  this.feedback.connect(this.delay);
-  this.wetgain.connect(audioCtx.destination);
-
+  input.connect(delay);
+  input.connect(drygain);
+  delay.connect(wetgain);
+  delay.connect(feedback);
+  feedback.connect(delay);
+  wetgain.connect(this.output);
+  drygain.connect(this.output);
 
   //if(bypass) mix = 0;
   //  wetgain.gain.value = mix;
   //  drygain.gain.value = 1 - mix;
-}
 
-SpeechJammer.toggleFilter = function(element) {
-  this.mic.disconnect(0);
-  this.delay.disconnect(0);
-  this.wetgain.disconnect(0);
-  if(element.checked) {
-    this.mic.connect(this.delay);
-    this.delay.connect(this.wetgain);
-    this.wetgain.connect(audioCtx.destination);
-  } else {
-    this.mic.connect(audioCtx.destination);
-  }
+    const Setup = () => {
+      var bypass = document.getElementById("bypass").checked;
+      delay.delayTime.value = parseFloat(document.getElementById("time").value);
+      feedback.gain.value = parseFloat(document.getElementById("feedback").value);
+      var mix = parseFloat(document.getElementById("mix").value);
+      if(bypass) mix = 0;
+        wetgain.gain.value = mix;
+        drygain.gain.value = 1 - mix;
+    }
+  document.querySelector("input#bypass").addEventListener("change", Setup);
+  document.querySelector("input#time").addEventListener("change", Setup);
+  document.querySelector("input#feedback").addEventListener("change", Setup);
+  document.querySelector("input#mix").addEventListener("change", Setup);
+
+  Setup();
 }
