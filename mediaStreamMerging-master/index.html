@@ -71,6 +71,7 @@
              function step1 () {
                Highpass.setup();
          　　　 Lowpass.setup();
+               ChangePich.setup();
               //SpeechJammer.setupSJ();
                //Setup();
                // (1) まずはビデオのみのストリームを取り出す
@@ -91,7 +92,7 @@
                Delay.setupDelay(audioStream);
                SpeechJammer.setupSJ(audioStream);
 
-               ChangePich.setup(audioStream);
+               ChangePich.setupFilter(audioStream);
                //Delay.setupFilterDelay(audioStream);
               // document.querySelector("input#bypass").addEventListener("change", Delay.setupDelay(audioStream));
               // document.querySelector("input#time").addEventListener("change", Delay.setupDelay(audioStream));

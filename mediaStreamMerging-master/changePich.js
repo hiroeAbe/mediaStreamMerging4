@@ -10,27 +10,21 @@ var ChangePich = {
   QUAL_MUL: 30,
 };
 
-ChangePich.setup = function(audioStream) {
+ChangePich.setup = function() {
   // WebAudio API 関係の初期化
   console.log("ChangePich setup");
+  this.output = audioCtx.createMediaStreamDestination();
   this.changepichNode = audioCtx.createBiquadFilter();
   this.changepichNode.type = 7;
-  //var changepichNode = audioCtx.createGain();
-  this.output = audioCtx.createMediaStreamDestination();
-  this.mic = audioCtx.createMediaStreamSource(audioStream);
-  // エフェクトを掛けて(ローパス)
-  this.mic.connect(changepichNode);
-  this.changepichNode.frequency.value = this.changepichNode.frequency.value * 2;
-  this.changepichNode.connect(this.output);
+  this.changepichNode = this.changepichNode * 2;
 }
 
-/*ChangePich.setupFilter = function(audioStream) {
+ChangePich.setupFilter = function(audioStream) {
   this.mic = audioCtx.createMediaStreamSource(audioStream);
   // エフェクトを掛けて(ローパス)
   this.mic.connect(this.changepichNode);
-  this.changepichNode.playbackRate.value = 2;
   this.changepichNode.connect(this.output);
-}*/
+}
 
 ChangePich.toggleFilter = function(element) {
   this.mic.disconnect(0);
