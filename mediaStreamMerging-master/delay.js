@@ -21,10 +21,10 @@ Delay.setupDelay = function(audioStream) {
   var feedback = audioCtx.createGain();
   this.output = audioCtx.createMediaStreamDestination();
 
-  //var bypass = document.getElementById("bypass").checked;
-  //delay.delayTime.value = parseFloat(document.getElementById("time").value);
-  //feedback.gain.value = parseFloat(document.getElementById("feedback").value);
-  //var mix = parseFloat(document.getElementById("mix").value);
+  /*var bypass = document.getElementById("bypass").checked;
+  delay.delayTime.value = parseFloat(document.getElementById("time").value);
+  feedback.gain.value = parseFloat(document.getElementById("feedback").value);
+  var mix = parseFloat(document.getElementById("mix").value);*/
   this.mic = audioCtx.createMediaStreamSource(audioStream);
   this.mic.connect(input);
 
@@ -36,9 +36,9 @@ Delay.setupDelay = function(audioStream) {
   wetgain.connect(this.output);
   drygain.connect(this.output);
 
-  //if(bypass) mix = 0;
-  //  wetgain.gain.value = mix;
-  //  drygain.gain.value = 1 - mix;
+    /*if(bypass) mix = 0;
+    wetgain.gain.value = mix;
+    drygain.gain.value = 1 - mix;*/
 
     const Setup = () => {
       var bypass = document.getElementById("bypass").checked;
@@ -49,10 +49,10 @@ Delay.setupDelay = function(audioStream) {
         wetgain.gain.value = mix;
         drygain.gain.value = 1 - mix;
     }
-  document.querySelector("input#bypass").addEventListener("change", Setup);
-  document.querySelector("input#time").addEventListener("change", Setup);
-  document.querySelector("input#feedback").addEventListener("change", Setup);
-  document.querySelector("input#mix").addEventListener("change", Setup);
+  //document.querySelector("input#bypass").addEventListener("change", Setup);
+  //document.querySelector("input#time").addEventListener("change", Setup);
+  //document.querySelector("input#feedback").addEventListener("change", Setup);
+  //document.querySelector("input#mix").addEventListener("change", Setup);
 
   Setup();
 }
