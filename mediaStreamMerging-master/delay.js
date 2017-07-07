@@ -36,11 +36,11 @@ Delay.setupDelay = function(audioStream) {
   wetgain.connect(this.output);
   drygain.connect(this.output);
 
-    /*if(bypass) mix = 0;
+  /*  if(bypass) mix = 0;
     wetgain.gain.value = mix;
     drygain.gain.value = 1 - mix;*/
 
-    const Setup = () => {
+  /*  const Setup = () => {
       var bypass = document.getElementById("bypass").checked;
       delay.delayTime.value = parseFloat(document.getElementById("time").value);
       feedback.gain.value = parseFloat(document.getElementById("feedback").value);
@@ -49,10 +49,33 @@ Delay.setupDelay = function(audioStream) {
         wetgain.gain.value = mix;
         drygain.gain.value = 1 - mix;
     }
-  //document.querySelector("input#bypass").addEventListener("change", Setup);
-  //document.querySelector("input#time").addEventListener("change", Setup);
-  //document.querySelector("input#feedback").addEventListener("change", Setup);
-  //document.querySelector("input#mix").addEventListener("change", Setup);
+  document.querySelector("input#bypass").addEventListener("change", Setup);
+  document.querySelector("input#time").addEventListener("change", Setup);
+  document.querySelector("input#feedback").addEventListener("change", Setup);
+  document.querySelector("input#mix").addEventListener("change", Setup);
+
+  Setup();*/
+}
+
+Delay.Setupp = function(){
+  const Setup = () => {
+    var bypass = document.getElementById("bypass").checked;
+    var delay = audioCtx.createDelay();
+    var wetgain = audioCtx.createGain();
+    var drygain = audioCtx.createGain();
+    var feedback = audioCtx.createGain();
+    delay.delayTime.value = parseFloat(document.getElementById("time").value);
+    feedback.gain.value = parseFloat(document.getElementById("feedback").value);
+    var mix = parseFloat(document.getElementById("mix").value);
+    if(bypass) mix = 0;
+      wetgain.gain.value = mix;
+      drygain.gain.value = 1 - mix;
+  }
+  document.querySelector("input#bypass").addEventListener("change", Setup);
+  document.querySelector("input#time").addEventListener("change", Setup);
+  document.querySelector("input#feedback").addEventListener("change", Setup);
+  document.querySelector("input#mix").addEventListener("change", Setup);
 
   Setup();
+
 }

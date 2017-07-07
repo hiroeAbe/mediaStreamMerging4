@@ -94,10 +94,10 @@
 
                ChangePich.setupFilter(audioStream);
                //Delay.setupFilterDelay(audioStream);
-               document.querySelector("input#bypass").addEventListener("change", Delay.setupDelay(audioStream).Setup());
-               document.querySelector("input#time").addEventListener("change", Delay.setupDelay(audioStream).Setup());
-               document.querySelector("input#feedback").addEventListener("change", Delay.setupDelay(audioStream).Setup());
-               document.querySelector("input#mix").addEventListener("change", Delay.setupDelay(audioStream).Setup();
+               document.querySelector("input#bypass").addEventListener("change", Delay.Setup());
+               document.querySelector("input#time").addEventListener("change", Delay.Setup());
+               document.querySelector("input#feedback").addEventListener("change", Delay.Setup());
+               document.querySelector("input#mix").addEventListener("change", Delay.Setup();
 
                // できあがったoutputをvideoStreamに合流させる
                videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
