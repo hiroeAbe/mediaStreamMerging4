@@ -14,7 +14,7 @@ ChangePich.setup = function() {
   // WebAudio API 関係の初期化
   console.log("ChangePich setup");
   this.output = audioCtx.createMediaStreamDestination();
-  var changepichNode = audioCtx.createGain();
+  var changepichNode = audioCtx.createBufferSource();
   changepichNode.playbackRate.value = 2;
 }
 
