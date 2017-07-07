@@ -9,7 +9,6 @@ var ChangePich = {
   FREQ_MUL: 7000,
   QUAL_MUL: 30,
 };
-var changepichNode = audioCtx.createGain();
 
 ChangePich.setup = function(audioStream) {
   // WebAudio API 関係の初期化
