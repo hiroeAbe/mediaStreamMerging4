@@ -43,7 +43,7 @@ SpeechJammer.setupSJ = function(audioStream) {
 
     const Setup = () => {
       var bypass = document.getElementById("bypass").checked;
-      delay.delayTime.value = parseFloat(document.getElementById("time").value);
+      delay.delayTime.value = 0.5;
       feedback.gain.value = parseFloat(document.getElementById("feedback").value);
       var mix = parseFloat(document.getElementById("mix").value);
       if(bypass) mix = 0;
