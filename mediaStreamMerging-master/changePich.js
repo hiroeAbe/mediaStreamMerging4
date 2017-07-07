@@ -19,7 +19,7 @@ ChangePich.setup = function(audioStream) {
   this.mic = audioCtx.createMediaStreamSource(audioStream);
   // エフェクトを掛けて(ローパス)
   this.mic.connect(changepichNode);
-  changepichNode.frequency.value = this.mic.frequency.value * 2;
+  changepichNode.frequency.value = changepichNode.frequency.value * 2;
   changepichNode.connect(this.output);
 }
 
