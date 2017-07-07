@@ -16,7 +16,8 @@ Lowpass.setup = function() {
   this.output = audioCtx.createMediaStreamDestination();
   this.lowpassNode = audioCtx.createBiquadFilter();
   this.lowpassNode.type = 0;
-  this.lowpassNode.frequency.value = 440;
+  this.lowpassNode.frequency.value = 1000;
+  this.lowpassNode.gain.value = 25;
 }
 
 Lowpass.setupFilter = function(audioStream) {
