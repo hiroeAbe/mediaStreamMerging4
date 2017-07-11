@@ -22,7 +22,6 @@
   <script>
     // Compatibility shim
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-    window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
 
     // PeerJS object
     var peer = new Peer({ key: '26b7f1a7-ea54-42e9-872a-f3bb803d816b', debug: 3});
@@ -95,6 +94,7 @@
 
                //Delay.setupFilterDelay(audioStream);
 
+               window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
                //音声認識APIの使用
                var speech = new webkitSpeechRecognition();
                //言語を日本語に設定
