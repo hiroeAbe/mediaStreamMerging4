@@ -82,8 +82,6 @@ document.querySelector("input#max").addEventListener("change", Setup);
 
   // エフェクトを掛けて(ローパス)
   this.mic.connect(analyser);
-  var oscillatorNode = audioctx.createOscillator();
-  this.mic.connect(oscillatorNode);
-  oscillatorNode.connect = this.output;  
+  
 
 }
