@@ -71,7 +71,6 @@
              function step1 () {
                Highpass.setup();
          　　　 Lowpass.setup();
-               ChangePich.setup();
               //SpeechJammer.setupSJ();
                //Setup();
                // (1) まずはビデオのみのストリームを取り出す
@@ -91,8 +90,8 @@
 
                Delay.setupDelay(audioStream);
                SpeechJammer.setupSJ(audioStream);
+               setupChangePich(audioStream);
 
-               ChangePich.setupFilter(audioStream);
                //Delay.setupFilterDelay(audioStream);
                document.querySelector("input#bypass").addEventListener("change", Delay.Setupp());
                document.querySelector("input#time").addEventListener("change", Delay.Setupp());
@@ -103,7 +102,7 @@
                videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Delay.output.stream.getAudioTracks()[0]);
-              videoStream.addTrack(ChangePich.output.stream.getAudioTracks()[0]);
+              //videoStream.addTrack(ChangePich.output.stream.getAudioTracks()[0]);
 
               //videoStream.addTrack(SpeechJammer.output.stream.getAudioTracks()[0]);
 
@@ -165,12 +164,17 @@
             Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="Lowpass.changeFrequency(this);"/>
           Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="Lowpass.changeQuality(this);" />
         </p>
+
         <p class="effectcontrol">
-          changePich on: <input type="checkbox" checked="false"
-            onchange="ChangePich.toggleFilter(this);"/>
-
+          <table>
+            <tr><td>Frequency/TimeDomain : </td><td><select id="mode" ><option>Frequency</option><option>TimeDomain</option></select></td></tr>
+            <tr><td>SmoothingTimeConstant : </td><td><input type="text" id="smoothing" value="0.9"/></td></tr>
+            <tr><td>MinDecibels : </td><td><input type="text" id="min"/></td></tr>
+            <tr><td>MaxDecibels : </td><td><input type="text" id="max"/></td></tr>
+          </table>
+          <br/><br/>
+          <canvas id="graph" width="512" height="256"></canvas>
         </p>
-
 
       </div>
       </div>

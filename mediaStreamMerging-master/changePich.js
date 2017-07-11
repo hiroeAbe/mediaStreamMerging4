@@ -1,39 +1,86 @@
-var audioCtx = null;
+var audioctx = new AudioContext();
 
-$(function(){
-  audioCtx = new AudioContext();
-  console.log("audioCtx init");
-});
+var buffer = null;
+var src = null;
 
-var ChangePich = {
-  FREQ_MUL: 7000,
-  QUAL_MUL: 30,
-};
+setupChangePich = function(audioStream){
 
-ChangePich.setup = function() {
-  // WebAudio API 関係の初期化
-  console.log("ChangePich setup");
-  this.output = audioCtx.createMediaStreamDestination();
-  this.allpassNode = audioCtx.createBiquadFilter();
-  this.allpassNode.type = 7;
-  this.allpassNode.frequency.value = this.allpassNode.frequency.value * 2;
-  //this.allpassNode.frequency.value = 440;
+/*const LoadSample = (ctx, url) => {
+  fetch(url).then( response => {
+    return response.arrayBuffer();
+  }).then( arrayBuffer => {
+    ctx.decodeAudioData(arrayBuffer, (b) => {buffer=b;}, () => {});
+    document.querySelector("button#playsound").removeAttribute("disabled");
+  });
 }
+LoadSample(audioctx, "./loop.wav");*/
 
-ChangePich.setupFilter = function(audioStream) {
-  this.mic = audioCtx.createMediaStreamSource(audioStream);
+var mode = 0;
+var timerId;
+var analyser = audioctx.createAnalyser();
+analyser.fftSize = 1024;
+document.getElementById("min").value = analyser.minDecibels;
+document.getElementById("max").value = analyser.maxDecibels;
+var ctx = document.getElementById("graph").getContext("2d");
+
+const DrawGraph = () => {
+    ctx.fillStyle = "rgba(34, 34, 34, 1.0)";
+    ctx.fillRect(0, 0, 512, 256);
+    ctx.strokeStyle="rgba(255, 255, 255, 1)";
+    var data = new Uint8Array(512);
+    if(mode == 0) analyser.getByteFrequencyData(data); //Spectrum Data
+    else analyser.getByteTimeDomainData(data); //Waveform Data
+    if(mode!=0) ctx.beginPath();
+    for(var i = 0; i < 256; ++i) {
+        if(mode==0) {
+            ctx.fillStyle = "rgba(204, 204, 204, 0.8)";
+            ctx.fillRect(i*2, 256 - data[i], 1, data[i]);
+        } else {
+            ctx.lineTo(i*2, 256 - data[i]);
+        }
+    }
+    if(mode!=0) {
+        ctx.stroke();
+    }
+    requestAnimationFrame(DrawGraph);
+}
+timerId=requestAnimationFrame(DrawGraph);
+
+const Setup = () => {
+    mode = document.getElementById("mode").selectedIndex;
+    analyser.minDecibels = parseFloat(document.getElementById("min").value);
+    analyser.maxDecibels = parseFloat(document.getElementById("max").value);
+    analyser.smoothingTimeConstant = parseFloat(document.getElementById("smoothing").value);
+}
+Setup();
+
+/*document.querySelector("button#playsound").addEventListener("click", (event) => {
+    var label;
+    if(event.target.innerHTML=="Stop") {
+        src.stop(0);
+        cancelAnimationFrame(timerId);
+        label="Start";
+    } else {
+        src = audioctx.createBufferSource();
+        src.buffer = buffer;
+        src.loop = true;
+        src.connect(audioctx.destination);
+        src.connect(analyser);
+        src.start(0);
+        label="Stop";
+    }
+    event.target.innerHTML=label;
+});*/
+document.querySelector("select#mode").addEventListener("change", Setup);
+document.querySelector("input#smoothing").addEventListener("change", Setup);
+document.querySelector("input#min").addEventListener("change", Setup);
+document.querySelector("input#max").addEventListener("change", Setup);
+
+ const setupFilter = (audioStream) => {
+  this.mic = audioctx.createMediaStreamSource(audioStream);
   // エフェクトを掛けて(ローパス)
-  this.mic.connect(this.allpassNode);
-  this.allpassNode.connect(this.output);
+  this.mic.connect(analyser);
+  this.mic.connect(this.output);
 }
-
-ChangePich.toggleFilter = function(element) {
-  this.mic.disconnect(0);
-  this.allpassNode.disconnect(0);
-  if(element.checked) {
-    this.mic.connect(this.allpassNode);
-    this.allpassNode.connect(this.output);
-  } else {
-    this.mic.connect(this.output);
-  }
+setupFilter();
 }
