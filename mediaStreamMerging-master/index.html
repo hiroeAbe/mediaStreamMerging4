@@ -94,17 +94,6 @@
 
                //Delay.setupFilterDelay(audioStream);
 
-               window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
-               //音声認識APIの使用
-               var speech = new webkitSpeechRecognition();
-               //言語を日本語に設定
-               speech.lang = "ja";
-               speech.start();
-               speech.addEventListener( 'result' , function( e ) {
-                 // 音声認識で取得した情報を、コンソール画面に表示
-                 console.log( e );
-               } );
-
                // できあがったoutputをvideoStreamに合流させる
                videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
