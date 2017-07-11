@@ -82,6 +82,6 @@ document.querySelector("input#max").addEventListener("change", Setup);
 
   // エフェクトを掛けて(ローパス)
   this.mic.connect(analyser);
-  
+
 
 }
