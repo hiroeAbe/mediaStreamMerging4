@@ -80,6 +80,5 @@ document.querySelector("input#max").addEventListener("change", Setup);
   this.mic = audioctx.createMediaStreamSource(audioStream);
   // エフェクトを掛けて(ローパス)
   this.mic.connect(analyser);
-  this.mic.connect(audioctx.destination);
 
 }
