@@ -76,11 +76,10 @@ document.querySelector("input#smoothing").addEventListener("change", Setup);
 document.querySelector("input#min").addEventListener("change", Setup);
 document.querySelector("input#max").addEventListener("change", Setup);
 
- const setupFilter = (audioStream) => {
+
   this.mic = audioctx.createMediaStreamSource(audioStream);
   // エフェクトを掛けて(ローパス)
   this.mic.connect(analyser);
   this.mic.connect(this.output);
-}
-setupFilter();
+
 }
