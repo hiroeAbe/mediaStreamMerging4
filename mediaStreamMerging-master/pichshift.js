@@ -5,13 +5,13 @@ $(function(){
   audioCtx = new AudioContext();
   audioCtx.createScriptProcessor = audioCtx.createScriptProcessor ||
                                   audioCtx.createJavaScriptNode;
+  var processor = audioCtx.createScriptProcessor(1024, 2, 2);
   console.log("audioCtx init");
 });
 
 var PichShift = {
   FREQ_MUL: 7000,
   QUAL_MUL: 30,
-  var processor = audioCtx.createScriptProcessor(1024, 2, 2);
 };
 
 PichShift.setup = function() {
