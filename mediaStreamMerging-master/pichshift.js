@@ -26,7 +26,7 @@ PichShift.setupFilter = function(audioStream) {
         buf0[i] = buf1[i] = (Math.sin((2 * Math.PI * 440 * i) / fs) - 0.5) * 1;
   }
 
-  processor.onaudioprocess = Process;
+  processor.onaudioprocess = Process();
   this.output = audioCtx.createMediaStreamDestination();
   this.mic = audioCtx.createMediaStreamSource(audioStream);
   // エフェクトを掛けて(ローパス)
