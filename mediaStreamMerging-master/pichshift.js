@@ -1,11 +1,10 @@
-var audioCtx = new AudioContext();
-audioCtx.createScriptProcessor = audioCtx.createScriptProcessor ||
-                                audioCtx.createJavaScriptNode;
-var processor = audioCtx.createScriptProcessor(1024, 2, 2);
+var audioCtx = null;
+
 
 $(function(){
-  //audioCtx = new AudioContext();
-
+  audioCtx = new AudioContext();
+  audioCtx.createScriptProcessor = audioCtx.createScriptProcessor ||
+                                  audioCtx.createJavaScriptNode;
   console.log("audioCtx init");
 });
 
@@ -14,10 +13,9 @@ var PichShift = {
   QUAL_MUL: 30,
 };
 
-
-
 PichShift.setupFilter = function(audioStream) {
   console.log("highpass setup");
+  var processor = audioCtx.createScriptProcessor(1024, 2, 2);
   this.output = audioCtx.createMediaStreamDestination();
   this.mic = audioCtx.createMediaStreamSource(audioStream);
   // エフェクトを掛けて(ローパス)
@@ -25,7 +23,7 @@ PichShift.setupFilter = function(audioStream) {
   processor.connect(this.output);
 }
 
-PichShift.toggleFilter = function(element) {
+/*PichShift.toggleFilter = function(element) {
   this.mic.disconnect(0);
   processor.disconnect(0);
   if(element.checked) {
@@ -51,4 +49,4 @@ PichShift.changeFrequency = function(element) {
 
 PichShift.changeQuality = function(element) {
   this.processor.Q.value = element.value * this.QUAL_MUL;
-}
+}*/
