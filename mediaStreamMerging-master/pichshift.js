@@ -20,10 +20,10 @@ PichShift.setupFilter = function(audioStream) {
   const Process(ev) => {
     var buf0 = ev.outputBuffer.getChannelData(0);
     var buf1 = ev.outputBuffer.getChannelData(1);
-    var fs = audioCtx.sampleRate;  // Sampling frequency
+    //var fs = audioCtx.sampleRate;  // Sampling frequency
 
     for(var i = 0; i < bufsize; ++i)
-        buf0[i] = buf1[i] = (Math.sin((2 * Math.PI * 440 * i) / fs) - 0.5) * 1;
+    buf0[i] = buf1[i] = (Math.random() - 0.5) * play;
   }
 
   processor.onaudioprocess = Process();
