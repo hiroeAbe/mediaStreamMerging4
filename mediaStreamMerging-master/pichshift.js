@@ -1,9 +1,11 @@
 var audioCtx = new AudioContext();
+audioCtx.createScriptProcessor = audioCtx.createScriptProcessor ||
+                                audioCtx.createJavaScriptNode;
 var processor = audioCtx.createScriptProcessor(1024, 2, 2);
 
 $(function(){
-  audioCtx.createScriptProcessor = audioCtx.createScriptProcessor ||
-                                  audioCtx.createJavaScriptNode;
+  //audioCtx = new AudioContext();
+
   console.log("audioCtx init");
 });
 
@@ -12,14 +14,11 @@ var PichShift = {
   QUAL_MUL: 30,
 };
 
-PichShift.setup = function() {
-  // WebAudio API 関係の初期化
-  console.log("highpass setup");
-  this.output = audioCtx.createMediaStreamDestination();
-}
+
 
 PichShift.setupFilter = function(audioStream) {
-  //var processor = audioCtx.createScriptProcessor(1024, 2, 2);
+  console.log("highpass setup");
+  this.output = audioCtx.createMediaStreamDestination();
   this.mic = audioCtx.createMediaStreamSource(audioStream);
   // エフェクトを掛けて(ローパス)
   this.mic.connect(processor);
