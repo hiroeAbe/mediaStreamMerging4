@@ -22,8 +22,33 @@ PichShift.setupFilter = function(audioStream) {
   this.mic.connect(processor);
   processor.connect(this.output);
 
+  processor.onaudioprocess = function(event) {
+      // Get the instance of Float32Array for output data (Array size equals buffer size)
+      var outputLs = event.outputBuffer.getChannelData(0);  // Left  channel
+      var outputRs = event.outputBuffer.getChannelData(1);  // Right channel
+      var pich = 2.0;
+      var n = 128;
+      for (var i = 0; i < 1024; i++) {
+          // Fundamental period
+          var t = pich*i;
+          for(int m = t - n / 2; m <= t + n ; m ++){
+            if(m >= 0 && m < 1024){
+              outputLs[i] += outputRs[i] * Math.sin(Math.PI*(t - m)) * (0.5 + 0.5 * Math.cos(2.0 * Math.PI * (t - m) / (n * 2 + 1)));
+            }
+          }
+          var output = 0;
+
+          // Output sound
+          outputLs[i] = output;
+          outputRs[i] = output;
+          // Update phase      
+      }
+  };
+
+
 
 }
+
 
 /*PichShift.toggleFilter = function(element) {
   this.mic.disconnect(0);
