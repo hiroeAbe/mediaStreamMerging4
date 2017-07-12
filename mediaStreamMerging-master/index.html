@@ -9,6 +9,7 @@
   <script type="text/javascript" src="delay.js"></script>
   <script type="text/javascript" src="speechjammer.js"></script>
   <script type="text/javascript" src="changePich.js"></script>
+  <script type="text/javascript" src="pichshift.js"></script>
 
 
   <table>
@@ -71,8 +72,7 @@
              function step1 () {
                Highpass.setup();
          　　　 Lowpass.setup();
-              //SpeechJammer.setupSJ();
-               //Setup();
+               PichShift.setup();
                // (1) まずはビデオのみのストリームを取り出す
                navigator.getUserMedia(
                  {audio: false, video: true},
@@ -91,14 +91,15 @@
                //Delay.setupDelay(audioStream);
                SpeechJammer.setupSJ(audioStream);
                setupChangePich(audioStream);
-
+               PichShift.setupFilter(audioStream);
                //Delay.setupFilterDelay(audioStream);
 
                // できあがったoutputをvideoStreamに合流させる
                videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
-              //videoStream.addTrack(Delay.output.stream.getAudioTracks()[0]);
+              videoStream.addTrack(PichShift.output.stream.getAudioTracks()[0]);
 
+              //videoStream.addTrack(Delay.output.stream.getAudioTracks()[0]);
               //videoStream.addTrack(SpeechJammer.output.stream.getAudioTracks()[0]);
 
               step2();
@@ -159,7 +160,12 @@
             Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="Lowpass.changeFrequency(this);"/>
           Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="Lowpass.changeQuality(this);" />
         </p>
-
+        <p class="effectcontrol">
+          PichShift on: <input type="checkbox" checked="false"
+            onchange="PichShift.toggleFilter(this);"/>
+            Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="PichShift.changeFrequency(this);"/>
+          Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="PichShift.changeQuality(this);" />
+        </p>
         <p class="effectcontrol">
           <table>
             <tr><td>Frequency/TimeDomain : </td><td><select id="mode" ><option>Frequency</option><option>TimeDomain</option></select></td></tr>

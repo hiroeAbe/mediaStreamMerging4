@@ -5,16 +5,6 @@ var src = null;
 
 setupChangePich = function(audioStream){
 
-/*const LoadSample = (ctx, url) => {
-  fetch(url).then( response => {
-    return response.arrayBuffer();
-  }).then( arrayBuffer => {
-    ctx.decodeAudioData(arrayBuffer, (b) => {buffer=b;}, () => {});
-    document.querySelector("button#playsound").removeAttribute("disabled");
-  });
-}
-LoadSample(audioctx, "./loop.wav");*/
-
 var mode = 0;
 var timerId;
 var analyser = audioctx.createAnalyser();
@@ -82,6 +72,5 @@ document.querySelector("input#max").addEventListener("change", Setup);
 
   // エフェクトを掛けて(ローパス)
   this.mic.connect(analyser);
-
 
 }
