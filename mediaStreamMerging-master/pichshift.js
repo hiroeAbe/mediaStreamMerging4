@@ -1,11 +1,9 @@
-var audioCtx = null;
-
+var audioCtx = new AudioContext();
+var processor = audioCtx.createScriptProcessor(1024, 2, 2);
 
 $(function(){
-  audioCtx = new AudioContext();
   audioCtx.createScriptProcessor = audioCtx.createScriptProcessor ||
                                   audioCtx.createJavaScriptNode;
-  var processor = audioCtx.createScriptProcessor(1024, 2, 2);
   console.log("audioCtx init");
 });
 
