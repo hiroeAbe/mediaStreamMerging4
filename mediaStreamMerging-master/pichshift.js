@@ -29,10 +29,10 @@ PichShift.setup = function(audioStream) {
   let tb;
 
   var frequency  = 400;
-  var fs = audioCtx.sampleRate;  // Sampling frequency
+  //var fs = audioCtx.sampleRate;  // Sampling frequency
   var x  = 0;
   for (let i = 0; i < 1024; i++) {
-      var t0 = fs / frequency;
+    //  var t0 = fs / frequency;
       var output = 0;
       output = Math.sin((2 * Math.PI / frequency) * i);
       // Output sound
