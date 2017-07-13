@@ -27,11 +27,27 @@ PichShift.setup = function(audioStream) {
   const outputLs = event.outputBuffer.getChannelData(0);
   const outputRs = event.outputBuffer.getChannelData(1);
   let tb;
+
+  var frequency  = 440;
+  var fs = audioCtx.sampleRate;  // Sampling frequency
+  var x  = 0;
   for (let i = 0; i < 1024; i++) {
+      var t0 = fs / frequency;
+      var output = 0;
+      output = Math.sin((2 * Math.PI * frequency * n) / fs);
+      // Output sound
+       outputLs[i] = output;
+       outputRs[i] = output;
+       // Update phase
+       n++;
+       // Exceed fundamental period ?
+       if (n >= t0) {
+           n = 0;
+       }
     //const outputLs = ;
     //const outputRs = ;
 
-    const pich = 5.0;
+    /*const pich = 5.0;
     const n = 128;
     let t = pich*i;
     let ta = parseInt(t);
@@ -47,6 +63,7 @@ PichShift.setup = function(audioStream) {
 
     outputLs[i] = outputL;  // ピッチシフターが適用された音声データ
     outputRs[i] = outputR;  // ピッチシフターが適用された音声データ
+*/
     }
   }
 }
