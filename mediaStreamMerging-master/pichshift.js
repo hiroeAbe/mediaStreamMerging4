@@ -8,17 +8,14 @@ $(function(){
   console.log("audioCtx init");
 });
 
-var PichShift = {
-  FREQ_MUL: 7000,
-  QUAL_MUL: 30,
-};
 
-PichShift.setupFilter = function(audioStream) {
-  console.log("highpass setup");
+
+setupPich = function(audioStream) {
+  console.log("pichshift setup");
   var processor = audioCtx.createScriptProcessor(1024, 2, 2);
   this.output = audioCtx.createMediaStreamDestination();
   this.mic = audioCtx.createMediaStreamSource(audioStream);
-  // エフェクトを掛けて(ローパス)
+  
   this.mic.connect(processor);
   processor.connect(this.output);
   processor.onaudioprocess = (event) => {
