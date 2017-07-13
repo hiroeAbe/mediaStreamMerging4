@@ -3,13 +3,17 @@ var audioCtx = null;
 
 $(function(){
   audioCtx = new AudioContext();
-  //audioCtx.createScriptProcessor = audioCtx.createScriptProcessor || audioCtx.createJavaScriptNode;
+  audioCtx.createScriptProcessor = audioCtx.createScriptProcessor || audioCtx.createJavaScriptNode;
   console.log("audioCtx init");
 });
 
+var PichShift = {
+  FREQ_MUL: 7000,
+  QUAL_MUL: 30,
+};
 
+PichShift.setup = function(audioStream) {
 
-setupPich = function(audioStream) {
   console.log("pichshift setup");
   const processor = audioCtx.createScriptProcessor(1024, 2, 2);
   this.output = audioCtx.createMediaStreamDestination();
@@ -27,8 +31,8 @@ setupPich = function(audioStream) {
     //const outputLs = ;
     //const outputRs = ;
 
-    var pich = 2.0;
-    var n = 128;
+    const pich = 2.0;
+    const n = 128;
     var t = pich*i;
     for(int m = t - n / 2; m <= t + n ; m ++){
       if(m >= 0 && m < 1024){
@@ -38,9 +42,9 @@ setupPich = function(audioStream) {
     outputLs[i] = outputL;  // ピッチシフターが適用された音声データ
     outputRs[i] = outputR;  // ピッチシフターが適用された音声データ
     }
-  };
   }
-}
+  }
+};
 
 
 /*PichShift.toggleFilter = function(element) {
