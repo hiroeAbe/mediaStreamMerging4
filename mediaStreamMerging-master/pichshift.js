@@ -69,8 +69,8 @@ PichShift.setup = function(audioStream) {
     outputRs[i] = outputR;  // ピッチシフターが適用された音声データ
 */
 
-  }
-}
+
+
 };
 
 
