@@ -34,15 +34,15 @@ PichShift.setup = function(audioStream) {
   for (let i = 0; i < 1024; i++) {
       var t0 = fs / frequency;
       var output = 0;
-      output = Math.sin((2 * Math.PI * frequency * n) / fs);
+      output = Math.sin((2 * Math.PI * frequency * x) / fs);
       // Output sound
        outputLs[i] = output;
        outputRs[i] = output;
        // Update phase
-       n++;
+       x++;
        // Exceed fundamental period ?
-       if (n >= t0) {
-           n = 0;
+       if (x >= t0) {
+           x = 0;
        }
     //const outputLs = ;
     //const outputRs = ;
