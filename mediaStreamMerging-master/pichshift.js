@@ -29,7 +29,7 @@ PichShift.setup = function(audioStream) {
   let tb;
 
   var frequency  = 400;
-  var fs = this.mic;  // Sampling frequency
+  var fs = audioCtx.sampleRate;  // Sampling frequency
   var x  = 0;
   for (let i = 0; i < 1024; i++) {
       var t0 = fs / frequency;
