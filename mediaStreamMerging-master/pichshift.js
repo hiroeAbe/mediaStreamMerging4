@@ -34,7 +34,7 @@ PichShift.setup = function(audioStream) {
     const pich = 2.0;
     const n = 128;
     var t = pich*i;
-    for(int m = t - n / 2; m <= t + n ; m ++){
+    for(let m = t - n / 2; m <= t + n ; m ++){
       if(m >= 0 && m < 1024){
         outputLs[i] += outputRs[i] * Math.sin(Math.PI*(t - m)) * (0.5 + 0.5 * Math.cos(2.0 * Math.PI * (t - m) / (n * 2 + 1)));
       }
