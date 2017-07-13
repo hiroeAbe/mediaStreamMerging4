@@ -31,7 +31,7 @@ PichShift.setup = function(audioStream) {
     //const outputLs = ;
     //const outputRs = ;
 
-    const pich = 2.0;
+    const pich = 5.0;
     const n = 128;
     var t = pich*i;
     for(let m = t - n / 2; m <= t + n ; m ++){
