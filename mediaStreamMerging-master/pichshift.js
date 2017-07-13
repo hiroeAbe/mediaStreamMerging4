@@ -21,7 +21,7 @@ PichShift.setup = function(audioStream) {
 
   this.mic.connect(processor);
   processor.connect(this.output);
-  /*processor.onaudioprocess = (event) => {
+  processor.onaudioprocess = (event) => {
   const inputLs  = event.inputBuffer.getChannelData(0);
   const inputRs  = event.inputBuffer.getChannelData(1);
   const outputLs = event.outputBuffer.getChannelData(0);
@@ -43,7 +43,7 @@ PichShift.setup = function(audioStream) {
     outputRs[i] = outputR;  // ピッチシフターが適用された音声データ
     }
   }
-}*/
+}
 };
 
 
