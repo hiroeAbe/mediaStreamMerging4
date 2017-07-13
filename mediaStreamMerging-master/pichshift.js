@@ -34,7 +34,7 @@ PichShift.setup = function(audioStream) {
   for (let i = 0; i < 1024; i++) {
       var t0 = fs / frequency;
       var output = 0;
-      output = Math.sin((2 * Math.PI * frequency * x) / fs);
+      output = Math.sin((2 * Math.PI / frequency) * i);
       // Output sound
        outputLs[i] = output;
        outputRs[i] = output;
