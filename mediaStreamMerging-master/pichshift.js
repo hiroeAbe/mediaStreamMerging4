@@ -28,7 +28,7 @@ PichShift.setup = function(audioStream) {
   const outputRs = event.outputBuffer.getChannelData(1);
   let tb;
 
-  var frequency  = 440;
+  var frequency  = 1000;
   var fs = audioCtx.sampleRate;  // Sampling frequency
   var x  = 0;
   for (let i = 0; i < 1024; i++) {
