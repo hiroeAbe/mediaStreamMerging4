@@ -3,8 +3,7 @@ var audioCtx = null;
 
 $(function(){
   audioCtx = new AudioContext();
-  audioCtx.createScriptProcessor = audioCtx.createScriptProcessor ||
-                                  audioCtx.createJavaScriptNode;
+  //audioCtx.createScriptProcessor = audioCtx.createScriptProcessor || audioCtx.createJavaScriptNode;
   console.log("audioCtx init");
 });
 
@@ -12,10 +11,10 @@ $(function(){
 
 setupPich = function(audioStream) {
   console.log("pichshift setup");
-  var processor = audioCtx.createScriptProcessor(1024, 2, 2);
+  const processor = audioCtx.createScriptProcessor(1024, 2, 2);
   this.output = audioCtx.createMediaStreamDestination();
   this.mic = audioCtx.createMediaStreamSource(audioStream);
-  
+
   this.mic.connect(processor);
   processor.connect(this.output);
   processor.onaudioprocess = (event) => {
