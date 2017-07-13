@@ -26,17 +26,23 @@ PichShift.setup = function(audioStream) {
   const inputRs  = event.inputBuffer.getChannelData(1);
   const outputLs = event.outputBuffer.getChannelData(0);
   const outputRs = event.outputBuffer.getChannelData(1);
-
+  let tb;
   for (let i = 0; i < 1024; i++) {
     //const outputLs = ;
     //const outputRs = ;
 
     const pich = 5.0;
     const n = 128;
-    var t = pich*i;
-    for(let m = t - n / 2; m <= t + n ; m ++){
+    let t = pich*i;
+    let ta = parseInt(t);
+    if(t == ta){
+      tb = ta;
+    }else{
+      tb = ta + 1;
+    }
+    for(let m = tb - n / 2; m <= ta + n ; m ++){
       if(m >= 0 && m < 1024){
-        outputLs[i] += outputRs[i] * Math.sin(Math.PI*(t - m)) * (0.5 + 0.5 * Math.cos(2.0 * Math.PI * (t - m) / (n * 2 + 1)));
+        outputLs[i] += outputRs[m] * Math.sin(Math.PI*(t - m)) * (0.5 + 0.5 * Math.cos(2.0 * Math.PI * (t - m) / (n * 2 + 1)));
       }
 
     outputLs[i] = outputL;  // ピッチシフターが適用された音声データ
