@@ -21,29 +21,33 @@ PichShift.setup = function(audioStream) {
 
   this.mic.connect(processor);
   processor.connect(this.output);
-  processor.onaudioprocess = (event) => {
-  const inputLs  = event.inputBuffer.getChannelData(0);
-  const inputRs  = event.inputBuffer.getChannelData(1);
-  const outputLs = event.outputBuffer.getChannelData(0);
-  const outputRs = event.outputBuffer.getChannelData(1);
-  let tb;
 
-  var frequency  = 1000;
-  //var fs = audioCtx.sampleRate;  // Sampling frequency
-  var x  = 0;
-  for (let i = 0; i < 1024; i++) {
-    //  var t0 = fs / frequency;
-      var output = 0;
-      output = Math.sin((2 * Math.PI / frequency) * i);
-      // Output sound
-       outputLs[i] = output;
-       outputRs[i] = output;
-       // Update phase
-       x++;
-       // Exceed fundamental period ?
-       if (x >= t0) {
-           x = 0;
-       }
+  　const frequency = 400;
+    const fs = audioCtx.sampleRate;  // Sampling frequency
+    const t0 = fs / frequency;
+
+    let x  = 0;
+
+    processor.onaudioprocess = (event) => {
+      const inputLs  = event.inputBuffer.getChannelData(0);
+      const inputRs  = event.inputBuffer.getChannelData(1);
+      const outputLs = event.outputBuffer.getChannelData(0);
+      const outputRs = event.outputBuffer.getChannelData(1);
+
+      for (let i = 0; i < 1024; i++) {
+        outputLs[i] = inputLs[i] + Math.sin((2 * Math.PI * frequency * x) / fs);
+        outputRs[i] = inputRs[i] + Math.sin((2 * Math.PI * frequency * x) / fs);
+
+        // Update phase
+        x++;
+
+        // Exceed fundamental period ?
+        if (x >= t0) {
+          x = 0;
+        }
+      }
+    };
+
     //const outputLs = ;
     //const outputRs = ;
 
