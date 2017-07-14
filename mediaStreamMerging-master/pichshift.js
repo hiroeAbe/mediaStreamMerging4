@@ -22,7 +22,7 @@ PichShift.setup = function(audioStream) {
   this.mic.connect(processor);
   processor.connect(this.output);
 
-  　const frequency = 400;
+  　const frequency = 1000;
     const fs = audioCtx.sampleRate;  // Sampling frequency
     const t0 = fs / frequency;
 
