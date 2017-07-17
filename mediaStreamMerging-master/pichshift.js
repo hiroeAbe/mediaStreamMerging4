@@ -22,8 +22,8 @@ PichShift.setup = function(audioStream) {
   this.mic.connect(processor);
   processor.connect(this.output);
 
-  　const frequency = 800;
-    const fs = this.output;  // Sampling frequency
+  　/*const frequency = 800;
+    const fs = audioCtx.sampleRate;  // Sampling frequency
     const t0 = fs / frequency;
 
     let x  = 0;
@@ -45,6 +45,15 @@ PichShift.setup = function(audioStream) {
         if (x >= t0) {
           x = 0;
         }
+      }
+    };*/
+    processor.onaudioprocess = (event) => {
+    // Get the instance of Float32Array for output data (Array size equals buffer size)
+    const outputLs = event.outputBuffer.getChannelData(0);  // Left  channel
+    const outputRs = event.outputBuffer.getChannelData(1);  // Right channel
+    for (let i = 0; i < 1024; i++) {
+        outputLs[i] = 2 * (Math.random() - 0.5);  // between -1 and 1
+        outputRs[i] = 2 * (Math.random() - 0.5);  // between -1 and 1
       }
     };
 
