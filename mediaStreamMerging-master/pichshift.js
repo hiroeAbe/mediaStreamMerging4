@@ -22,7 +22,7 @@ PichShift.setup = function(audioStream) {
   this.mic.connect(processor);
   processor.connect(this.output);
 
-  　/*const frequency = 800;
+  　const frequency = 800;
     const fs = audioCtx.sampleRate;  // Sampling frequency
     const t0 = fs / frequency;
 
@@ -35,8 +35,8 @@ PichShift.setup = function(audioStream) {
       const outputRs = event.outputBuffer.getChannelData(1);
 
       for (let i = 0; i < 1024; i++) {
-        outputLs[i] = inputLs[i] + Math.sin((2 * Math.PI * frequency * x) / fs);
-        outputRs[i] = inputRs[i] + Math.sin((2 * Math.PI * frequency * x) / fs);
+        outputLs[i] = inputLs[i] * Math.sin((2 * Math.PI * frequency * x) / fs);
+        outputRs[i] = inputRs[i] * Math.sin((2 * Math.PI * frequency * x) / fs);
 
         // Update phase
         x++;
@@ -46,31 +46,6 @@ PichShift.setup = function(audioStream) {
           x = 0;
         }
       }
-    };*/
-    processor.onaudioprocess = (event) => {
-    // Get the instance of Float32Array for output data (Array size equals buffer size)
-    const inputLs = event.inputBuffer.getChannelData(0);  // Left  channel
-    const inputRs = event.inputBuffer.getChannelData(1);
-    const outputLs = event.outputBuffer.getChannelData(0);  // Left  channel
-    const outputRs = event.outputBuffer.getChannelData(1);  // Right channel
-
-    const pich = 5.0;
-    const n = 128;
-    let t = pich*i;
-    let ta = parseInt(t);
-    if(t == ta){
-      tb = ta;
-    }else{
-      tb = ta + 1;
-    }
-    for (let i = 0; i < 1024; i++) {
-      for(let m = tb - n / 2; m <= ta + n ; m ++){
-        if(m >= 0 && m < 1024){
-          outputLs[i] =  outputLs[i] + inputRs[m] * Math.sin(Math.PI*(t - m)) * (0.5 + 0.5 * Math.cos(2.0 * Math.PI * (t - m) / (n * 2 + 1)));  // between -1 and 1
-          outputRs[i] =  outputRs[i] + inputLs[m] * Math.sin(Math.PI*(t - m)) * (0.5 + 0.5 * Math.cos(2.0 * Math.PI * (t - m) / (n * 2 + 1)));  // between -1 and 1;  // between -1 and 1
-        }
-      }
-    }
     };
 
     //const outputLs = ;
