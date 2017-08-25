@@ -20,6 +20,7 @@
     <tr><td>Mix : </td><td><input type="text" size="8" id="mix" value="0.4"/></td></tr>
   </table>
 
+
   <script>
     // Compatibility shim
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -141,6 +142,17 @@
 
 <body>
 
+  <form name="selbox">
+  <p>music:<br>
+  <select id="music">
+  <option value="./cafe.mp3">cafe</option>
+  <option value="./sea.mp3">sea</option>
+  <option value="./work.mp3">work</option>
+  <option value="./party.mp3">party</option>
+  </select></p>
+  </form>
+  <button id="playsound" disabled>Play</button><br/>
+
   <div class="pure-g">
 
       <!-- Video area -->
@@ -206,6 +218,50 @@
       </div>
   </div>
 
+  <script type="text/javascript">
+    var audioctx = new AudioContext();
+
+    var buffer = null;
+    var src = null;
+    var input = audioctx.createGain();
+    var musics = document.getElementById("music");
+    var selectedItem = "./cafe.mp3";
+
+    input.connect(audioctx.destination);
+
+    const LoadSample = (ctx, url) => {
+      fetch(url).then( response => {
+        return response.arrayBuffer();
+      }).then( arrayBuffer => {
+        ctx.decodeAudioData(arrayBuffer, (b) => {buffer=b;}, () => {});
+        document.querySelector("button#playsound").removeAttribute("disabled");
+      });
+    }
+    musics.onchange = function(){
+    selectedItem = this.options[ this.selectedIndex ];
+    console.log(selectedItem.value);
+    LoadSample(audioctx,selectedItem.value);
+    }
+    </script>
+    <script type="text/javascript">
+
+    document.querySelector("button#playsound").addEventListener("click", (event) => {
+      var label;
+      if(event.target.innerHTML=="Stop") {
+        src.stop(0);
+        label="Start";
+      } else {
+        src = audioctx.createBufferSource();
+        src.buffer = buffer;
+        src.loop = true;
+        src.connect(input);
+        src.start(0);
+        label="Stop";
+      }
+      event.target.innerHTML=label;
+    });
+
+  </script>
 
 </body>
 </html>
