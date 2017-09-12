@@ -4,8 +4,7 @@
   <link rel="stylesheet" href="style.css">
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   <script type="text/javascript" src="https://skyway.io/dist/0.3/peer.js"></script>
-  <script type="text/javascript" src="lowpass.js"></script>
-  <script type="text/javascript" src="highpass.js"></script>
+
   <script type="text/javascript" src="delay.js"></script>
   <script type="text/javascript" src="speechjammer.js"></script>
   <script type="text/javascript" src="changePich.js"></script>
@@ -71,8 +70,7 @@
              });
 
              function step1 () {
-               Highpass.setup();
-         　　　 Lowpass.setup();
+
                // (1) まずはビデオのみのストリームを取り出す
                navigator.getUserMedia(
                  {audio: false, video: true},
@@ -85,22 +83,15 @@
                    navigator.getUserMedia(
                      {audio: true, video: false},
              function(audioStream){
-               Highpass.setupFilter(audioStream);
-               Lowpass.setupFilter(audioStream);
 
-               //Delay.setupDelay(audioStream);
                SpeechJammer.setupSJ(audioStream);
                setupChangePich(audioStream);
                PichShift.setup(audioStream);
-               //Delay.setupFilterDelay(audioStream);
 
                // できあがったoutputをvideoStreamに合流させる
-               videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
-              videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(PichShift.output.stream.getAudioTracks()[0]);
 
-              //videoStream.addTrack(Delay.output.stream.getAudioTracks()[0]);
-              //videoStream.addTrack(SpeechJammer.output.stream.getAudioTracks()[0]);
+
 
               step2();
             },
@@ -159,18 +150,7 @@
       <div class="pure-u-2-3" id="video-container">
         <video id="their-video" autoplay></video>
         <video id="my-video" muted="true" autoplay></video>
-        <p class="effectcontrol">
-          Highpass on: <input type="checkbox" checked="false"
-            onchange="Highpass.toggleFilter(this);"/>
-         Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="Highpass.changeFrequency(this);"/>
-          Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="Highpass.changeQuality(this);"/>
-        </p>
-        <p class="effectcontrol">
-          Lowpass on: <input type="checkbox" checked="false"
-            onchange="Lowpass.toggleFilter(this);"/>
-            Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="Lowpass.changeFrequency(this);"/>
-          Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="Lowpass.changeQuality(this);" />
-        </p>
+
 
         <p class="effectcontrol">
           <table>

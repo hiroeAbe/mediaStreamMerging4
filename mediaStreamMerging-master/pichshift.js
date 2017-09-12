@@ -26,7 +26,6 @@ PichShift.setup = function(audioStream) {
     const fs = audioCtx.sampleRate;  // Sampling frequency
     const t0 = fs / frequency;
 
-    let x  = 0;
 
     processor.onaudioprocess = (event) => {
       const inputLs  = event.inputBuffer.getChannelData(0);
@@ -35,16 +34,10 @@ PichShift.setup = function(audioStream) {
       const outputRs = event.outputBuffer.getChannelData(1);
 
       for (let i = 0; i < 1024; i++) {
-        outputLs[i] = inputLs[i] * Math.sin((2 * Math.PI * frequency * x) / fs);
-        outputRs[i] = inputRs[i] * Math.sin((2 * Math.PI * frequency * x) / fs);
+        outputLs[i] = 2*(Math.random() - 0.5);
+        outputRs[i] = 2*(Math.random() - 0.5);
 
-        // Update phase
-        x++;
 
-        // Exceed fundamental period ?
-        if (x >= t0) {
-          x = 0;
-        }
       }
     };
 
