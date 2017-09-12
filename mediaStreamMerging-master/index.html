@@ -27,6 +27,7 @@
 
     // PeerJS object
     var peer = new Peer({ key: '26b7f1a7-ea54-42e9-872a-f3bb803d816b', debug: 3});
+    var conn = peer.connect('dest-peer-id');
 
 
 
@@ -73,12 +74,22 @@
              function step1 () {
                document.querySelector("input#sendBt").addEventListener("change", (event) => {
                  var sendmg = document.getElementById("speechjammer").checked;
-                 var mg;
+                /* var mg;
                  if(sendmg) {
                    mg="ok";
-                   call.send(mg);
+                   dataConnection.send(mg);
                    console.log("sendmg");
-                 }
+                 }*/
+                 if(sendmg){
+                 conn.on('open', function() {
+                   // メッセージを受信
+                   conn.on('data', function(data) {
+                     console.log('Received', data);
+                   });
+                   // メッセージを送信
+                   conn.send('Hello!');
+                 });
+               }
                });
 
                // (1) まずはビデオのみのストリームを取り出す
