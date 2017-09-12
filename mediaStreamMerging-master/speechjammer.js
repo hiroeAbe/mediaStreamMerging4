@@ -42,7 +42,7 @@ SpeechJammer.setupSJ = function(audioStream) {
   //  drygain.gain.value = 1 - mix;
 
     const Setup = () => {
-      var bypass = document.getElementById("bypass").checked;
+      var bypass = document.getElementById("speechjammer").checked;
       delay.delayTime.value = 0.28;
       feedback.gain.value = 0.3;
       var mix = parseFloat(document.getElementById("mix").value);
@@ -50,7 +50,7 @@ SpeechJammer.setupSJ = function(audioStream) {
         wetgain.gain.value = mix;
         drygain.gain.value = 1 - mix;
     }
-  document.querySelector("input#bypass").addEventListener("change", Setup);
+  document.querySelector("input#speechjammer").addEventListener("change", Setup);
   document.querySelector("input#time").addEventListener("change", Setup);
   document.querySelector("input#feedback").addEventListener("change", Setup);
   document.querySelector("input#mix").addEventListener("change", Setup);
