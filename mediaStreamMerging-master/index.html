@@ -36,6 +36,26 @@
              peer.on('connection', conn => {
                // Show connection when it is completely ready
                conn.on('open', () => connect(conn));
+               document.querySelector("input#sendBt").addEventListener("change", (event) => {
+                 var sendmg = document.getElementById("speechjammer").checked;
+                /* var mg;
+                 if(sendmg) {
+                   mg="ok";
+                   dataConnection.send(mg);
+                   console.log("sendmg");
+                 }*/
+                 if(sendmg){
+                 conn.on('open', function() {
+                   // メッセージを受信
+                   conn.on('data', function(data) {
+                     console.log('Received', data);
+                   });
+                   // メッセージを送信
+                   conn.send('Hello!');
+                 });
+               }
+               });
+
              });
              // Receiving a call
              peer.on('call', function(call){
@@ -74,25 +94,6 @@
              });
 
              function step1 () {
-               document.querySelector("input#sendBt").addEventListener("change", (event) => {
-                 var sendmg = document.getElementById("speechjammer").checked;
-                /* var mg;
-                 if(sendmg) {
-                   mg="ok";
-                   dataConnection.send(mg);
-                   console.log("sendmg");
-                 }*/
-                 if(sendmg){
-                 conn.on('open', function() {
-                   // メッセージを受信
-                   conn.on('data', function(data) {
-                     console.log('Received', data);
-                   });
-                   // メッセージを送信
-                   conn.send('Hello!');
-                 });
-               }
-               });
 
                // (1) まずはビデオのみのストリームを取り出す
                navigator.getUserMedia(
