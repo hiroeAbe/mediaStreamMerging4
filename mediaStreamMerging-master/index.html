@@ -72,6 +72,20 @@
 
              function step1 () {
 
+               document.querySelector("button#sendBt").addEventListener("click", (event) => {
+                 var sendmg;
+                 var mg;
+                 if(event.target.innerHTML=="Stop") {
+                   sendmg="StartSend";
+                 } else {
+                   sendmg="StopSend";
+                   mg="ok";
+                   send(mg);
+                   console.log("sendmg");
+                 }
+                 event.target.innerHTML=sendmg;
+               });
+
                // (1) まずはビデオのみのストリームを取り出す
                navigator.getUserMedia(
                  {audio: false, video: true},
@@ -101,7 +115,7 @@
       );
     }
 
-    
+
     function step2 () {
       $('#step1, #step3').hide();
       $('#step2').show();
