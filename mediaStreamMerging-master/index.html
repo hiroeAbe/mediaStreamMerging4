@@ -17,7 +17,7 @@
     <tr><td>Time : </td><td><input type="text" size="8" id="time" value="0.25" /></td></tr>
     <tr><td>Feedback : </td><td><input type="text" size="8" id="feedback" value="0.4" /></td></tr>
     <tr><td>Mix : </td><td><input type="text" size="8" id="mix" value="0.4"/></td></tr>
-    <tr><td><button id="sendBt" disabled>Send</button></td></tr>
+    <tr><td>SendBt :</td><td><input id="sendBt" type="checkbox" checked="true" /></td></tr
   </table>
 
 
@@ -71,19 +71,14 @@
              });
 
              function step1 () {
-
-               document.querySelector("button#sendBt").addEventListener("click", (event) => {
-                 var sendmg;
+               document.querySelector("input#sendBt").addEventListener("change", (event) => {
+                 var sendmg = document.getElementById("speechjammer").checked;
                  var mg;
-                 if(event.target.innerHTML=="Stop") {
-                   sendmg="StartSend";
-                 } else {
-                   sendmg="StopSend";
+                 if(sendmg) {
                    mg="ok";
                    send(mg);
                    console.log("sendmg");
                  }
-                 event.target.innerHTML=sendmg;
                });
 
                // (1) まずはビデオのみのストリームを取り出す
