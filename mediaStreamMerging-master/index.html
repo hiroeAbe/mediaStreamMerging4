@@ -92,8 +92,6 @@
                // できあがったoutputをvideoStreamに合流させる
               videoStream.addTrack(PichShift.output.stream.getAudioTracks()[0]);
 
-
-
               step2();
             },
             function(){ $('#step1-error').show();　} //エラー表示
@@ -103,20 +101,7 @@
       );
     }
 
-    document.querySelector("button#sendBt").addEventListener("click", (event) => {
-      var sendmg;
-      var mg;
-      if(event.target.innerHTML=="Stop") {
-        sendmg="StartSend";
-      } else {
-        sendmg="StopSend";
-        mg="ok";
-        send(mg);
-        console.log("sendmg");
-      }
-      event.target.innerHTML=sendmg;
-    });
-
+    
     function step2 () {
       $('#step1, #step3').hide();
       $('#step2').show();
