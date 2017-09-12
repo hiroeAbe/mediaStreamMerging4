@@ -12,12 +12,13 @@
 
 
   <table>
-    <tr><td>SpeechJammer :</td><td><input id="bypass" type="checkbox" checked="false" /></td></tr>
+    <tr><td>SpeechJammer :</td><td><input id="speechjammer" type="checkbox" checked="true" /></td></tr>
     <tr><td>Bypass :</td><td><input id="bypass" type="checkbox" /></td></tr>
     <tr><td>Time : </td><td><input type="text" size="8" id="time" value="0.25" /></td></tr>
     <tr><td>Feedback : </td><td><input type="text" size="8" id="feedback" value="0.4" /></td></tr>
     <tr><td>Mix : </td><td><input type="text" size="8" id="mix" value="0.4"/></td></tr>
   </table>
+  <button id="sendBt" disabled>Send</button><br/>
 
 
   <script>
@@ -101,6 +102,20 @@
         function(){ $('#step1-error').show();　} //エラー表示
       );
     }
+
+    document.querySelector("button#sendBt").addEventListener("click", (event) => {
+      var sendmg;
+      var mg;
+      if(event.target.innerHTML=="Stop") {
+        sendmg="StartSend";
+      } else {
+        sendmg="StopSend";
+        mg="ok";
+        send(mg);
+        console.log("sendmg");
+      }
+      event.target.innerHTML=sendmg;
+    });
 
     function step2 () {
       $('#step1, #step3').hide();
