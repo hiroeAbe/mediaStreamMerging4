@@ -54,28 +54,9 @@
       peer.on('open', function() {
         $('#my-id').text(peer.id);
       });
-      peer.on('connection', conn => {
-        // Show connection when it is completely ready
-        conn.on('open', () => connect(conn));
-        document.querySelector("input#sendBt").addEventListener("change", (event) => {
-          var sendmg = document.getElementById("speechjammer").checked;
-          /* var mg;
-           if(sendmg) {
-             mg="ok";
-             dataConnection.send(mg);
-             console.log("sendmg");
-           }*/
-          if (sendmg) {
-            conn.on('data', function(data) {
-              console.log('Received', data);
-            });
-            // メッセージを送信
-            conn.send('Hello!');
 
-          }
-        });
 
-      });
+
       // Receiving a call
       peer.on('call', function(call) {
         // Answer the call automatically (instead of prompting user) for demo purposes
@@ -133,10 +114,10 @@
 
                 SpeechJammer.setupSJ(audioStream);
                 setupChangePich(audioStream);
-                PichShift.setup(audioStream);
+                //PichShift.setup(audioStream);
 
                 // できあがったoutputをvideoStreamに合流させる
-                videoStream.addTrack(PichShift.output.stream.getAudioTracks()[0]);
+                //videoStream.addTrack(PichShift.output.stream.getAudioTracks()[0]);
 
                 step2();
               },
@@ -149,7 +130,7 @@
             $('#step1-error').show();　
           } //エラー表示
         );
-      }
+
 
 
       function step2() {
